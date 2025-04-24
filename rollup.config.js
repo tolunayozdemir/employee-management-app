@@ -5,14 +5,14 @@
  */
 
 import summary from 'rollup-plugin-summary';
-import {terser} from 'rollup-plugin-terser';
+import terser from '@rollup/plugin-terser';
 import resolve from '@rollup/plugin-node-resolve';
 import replace from '@rollup/plugin-replace';
 
 export default {
-  input: 'my-element.js',
+  input: 'src/employee-app.js',
   output: {
-    file: 'my-element.bundled.js',
+    file: 'src/employee-app.bundled.js',
     format: 'esm',
   },
   onwarn(warning) {
