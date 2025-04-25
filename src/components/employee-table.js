@@ -1,6 +1,31 @@
-import {html, LitElement} from 'lit';
+import {html, LitElement, css} from 'lit';
 
 export class EmployeeList extends LitElement {
+  static get styles() {
+    return css`
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        background-color: var(--white);
+      }
+
+      th,
+      td {
+        padding: 1.5rem;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+        font-weight: 400;
+      }
+
+      th {
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+
+     
+    `;
+  }
   static get properties() {
     return {
       employees: {type: Array},
@@ -54,7 +79,7 @@ export class EmployeeList extends LitElement {
 
   render() {
     return html`
-      <table>
+      <table class="employee-table">
         <thead>
           <tr>
             <th class="checkbox-cell">

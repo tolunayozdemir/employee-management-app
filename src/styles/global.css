@@ -1,0 +1,20 @@
+
+:root {
+  --background-color: #f5f5f5;
+  --primary-color: #ff6600;
+  --white: #fffbfb;
+  font-size: 16px;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', Arial, sans-serif;
+  background-color: var(--background-color);
+}
+
+main {
+  min-height: 100vh;
+  padding: 3rem;
+}
