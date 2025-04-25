@@ -1,16 +1,48 @@
 import {LitElement, html} from 'lit';
 import './components/employee-table.js';
-import {employees} from './components/employee.js';
+import store from './store/store.js';
+import {deleteEmployee} from './store/actions.js';
 
 export class EmployeeApp extends LitElement {
+  static get properties() {
+    return {
+      employees: {type: Array},
+    };
+  }
+
+  constructor() {
+    super();
+    this.employees = [];
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._unsubscribe = store.subscribe(() =>
+      this._stateChanged(store.getState())
+    );
+    this._stateChanged(store.getState());
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._unsubscribe) {
+      this._unsubscribe();
+    }
+  }
+
+  _stateChanged(state) {
+    this.employees = state.employees;
+  }
+
   _handleDeleteEmployee(e) {
-    console.log(e.detail.id);
+    const employeeId = e.detail.id;
+    store.dispatch(deleteEmployee(employeeId));
   }
 
   render() {
     return html` <div>
       <employee-table
-        .employees=${employees}
+        .employees=${this.employees}
         @employee-delete=${this._handleDeleteEmployee}
       ></employee-table>
     </div>`;
