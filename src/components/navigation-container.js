@@ -12,8 +12,16 @@ export class NavigationContainer extends LitElement {
       }
     `;
   }
+  
   render() {
-    return html`<nav></nav>`;
+    return html`
+      <nav>
+        <ul>
+          <li><a href="/">Employee List</a></li>
+          <li><a href="/add-employee">Add Employee</a></li>
+        </ul>
+      </nav>
+    `;
   }
 }
 

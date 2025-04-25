@@ -1,9 +1,9 @@
 import {LitElement, html} from 'lit';
-import './employee-table.js';
+import '../components/employee-table.js';
 import store from '../store/store.js';
 import {deleteEmployee} from '../store/actions.js';
 
-export class EmployeeApp extends LitElement {
+export class EmployeePage extends LitElement {
   static get properties() {
     return {
       employees: {type: Array},
@@ -49,4 +49,4 @@ export class EmployeeApp extends LitElement {
   }
 }
 
-customElements.define('employee-app', EmployeeApp);
+customElements.define('employee-page', EmployeePage);
