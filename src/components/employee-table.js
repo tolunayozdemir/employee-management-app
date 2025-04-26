@@ -1,5 +1,6 @@
 import {html, LitElement, css} from 'lit';
 import './pagination-component.js';
+import './employee-table-not-found.js';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -27,7 +28,13 @@ export class EmployeeList extends LitElement {
         font-weight: 600;
         color: var(--primary-color);
       }
-      
+
+      .checkbox-cell {
+        width: 2.5rem;
+        padding: 0;
+        text-align: right;
+      }
+
       .action-btn {
         background: none;
         border: none;
@@ -124,6 +131,14 @@ export class EmployeeList extends LitElement {
   }
 
   render() {
+    if (!this.employees || this.employees.length === 0) {
+      return html`
+        <employee-table-not-found
+          @add-employee-clicked="${this._handleAddEmployeeClicked}"
+        ></employee-table-not-found>
+      `;
+    }
+    
     return html`
       <table class="employee-table">
         <thead>

@@ -41,7 +41,7 @@ export class EmployeePage extends LitElement {
         color: var(--white);
         border-color: var(--primary-color);
       }
-      
+
       .search-section {
         margin: 1rem 0;
         width: 100%;
@@ -54,6 +54,7 @@ export class EmployeePage extends LitElement {
       employees: {type: Array},
       filteredEmployees: {type: Array, state: true},
       employeeToEdit: {type: Object},
+      isEmployeeModalOpen: {type: Boolean},
       viewMode: {type: String, state: true},
       searchTerm: {type: String, state: true},
     };
@@ -64,7 +65,8 @@ export class EmployeePage extends LitElement {
     this.viewMode = 'table';
     this.employees = [];
     this.filteredEmployees = [];
-    this.employeeToEdit = null;
+    this.employeeToEdit = undefined;
+    this.isEmployeeModalOpen = false;
     this.searchTerm = '';
   }
 
@@ -95,7 +97,7 @@ export class EmployeePage extends LitElement {
     }
 
     const searchTermLower = this.searchTerm.toLowerCase();
-    this.filteredEmployees = this.employees.filter(employee => {
+    this.filteredEmployees = this.employees.filter((employee) => {
       return (
         employee.firstName.toLowerCase().includes(searchTermLower) ||
         employee.lastName.toLowerCase().includes(searchTermLower) ||
@@ -121,12 +123,11 @@ export class EmployeePage extends LitElement {
 
   _onEdit(e) {
     this.employeeToEdit = e.detail;
-    const modalDialog = this.shadowRoot.querySelector('modal-dialog');
-    modalDialog.open();
+    this.isEmployeeModalOpen = true;
   }
 
   _onModalClosed() {
-    this.employeeToEdit = null;
+    this.isEmployeeModalOpen = false;
   }
 
   _switchView(mode) {
@@ -138,9 +139,7 @@ export class EmployeePage extends LitElement {
 
     if (confirm('Are you sure you want to add this employee?')) {
       store.dispatch(updateEmployee(formData));
-      const modalDialog = this.shadowRoot.querySelector('modal-dialog');
-      modalDialog.close();
-      this.employeeToEdit = null;
+      this.isEmployeeModalOpen = false;
     }
   }
 
@@ -184,19 +183,19 @@ export class EmployeePage extends LitElement {
           </button>
         </div>
       </div>
-      
+
       <div class="search-section">
-        <search-bar 
-          placeholder="Search employees..." 
+        <search-bar
+          placeholder="Search employees..."
           debounceTime="300"
           @search-change=${this._handleSearch}
         ></search-bar>
       </div>
-      
+
       ${this._renderCurrentView()}
 
       <modal-dialog
-        .isOpen=${!!this.employeeToEdit}
+        .isOpen=${this.isEmployeeModalOpen}
         @modal-closed=${this._onModalClosed}
       >
         ${this.employeeToEdit &&
