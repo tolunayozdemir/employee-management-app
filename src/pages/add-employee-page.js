@@ -31,11 +31,11 @@ export class AddEmployeePage extends LitElement {
     `;
   }
 
-  handleCancel() {
+  _handleCancel() {
     Router.go('/');
   }
 
-  handleFormSubmit(e) {
+  _handleFormSubmit(e) {
     const formData = e.detail.formData;
     
     if (confirm('Are you sure you want to add this employee?')) {
@@ -49,8 +49,8 @@ export class AddEmployeePage extends LitElement {
       <div class="form-container">
         <h2>Add New Employee</h2>
         <employee-form 
-          @cancel=${this.handleCancel}
-          @submit-form=${this.handleFormSubmit}
+          @cancel=${this._handleCancel}
+          @submit-form=${this._handleFormSubmit}
         ></employee-form>
       </div>
     `;

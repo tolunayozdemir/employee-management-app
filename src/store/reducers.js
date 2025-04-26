@@ -1,4 +1,4 @@
-import {DELETE_EMPLOYEE, ADD_EMPLOYEE} from './actions.js';
+import {DELETE_EMPLOYEE, ADD_EMPLOYEE, UPDATE_EMPLOYEE} from './actions.js';
 
 export const initialEmployees = Array.from({length: 100}, (_, index) => ({
   id: index + 1,
@@ -53,6 +53,16 @@ export const employeeReducer = (state = initialState, action) => {
       return {
         ...state,
         employees: [...state.employees, newEmployee],
+      };
+    }
+    case UPDATE_EMPLOYEE: {
+      const updatedEmployees = state.employees.map(employee => 
+        employee.id === action.payload.id ? action.payload : employee
+      );
+      
+      return {
+        ...state,
+        employees: updatedEmployees,
       };
     }
     default:

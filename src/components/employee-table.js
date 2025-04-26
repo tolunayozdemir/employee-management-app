@@ -22,8 +22,6 @@ export class EmployeeList extends LitElement {
         font-weight: 600;
         color: var(--primary-color);
       }
-
-     
     `;
   }
   static get properties() {
@@ -41,6 +39,14 @@ export class EmployeeList extends LitElement {
     this.dispatchEvent(
       new CustomEvent('employee-delete', {
         detail: {id: row.id},
+      })
+    );
+  }
+
+  _handleEditClick(row) {
+    this.dispatchEvent(
+      new CustomEvent('employee-edit', {
+        detail: row,
       })
     );
   }

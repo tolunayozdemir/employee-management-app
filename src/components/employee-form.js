@@ -5,7 +5,12 @@ export class EmployeeForm extends LitElement {
   static get properties() {
     return {
       formData: {type: Object},
+      type: {type: String},
     };
+  }
+
+  get editMode() {
+    return this.type === 'edit';
   }
 
   static get styles() {
@@ -103,7 +108,6 @@ export class EmployeeForm extends LitElement {
       }
     `;
   }
-
 
   constructor() {
     super();
@@ -216,7 +220,7 @@ export class EmployeeForm extends LitElement {
     } else if (!emailRegex.test(this.formData.email)) {
       newErrors.email = 'Please enter a valid email address';
       isValid = false;
-    } else {
+    } else if ((!this.editMode)) {
       const employeesState = store.getState().employees;
       const emailExists = employeesState.some(
         (emp) => emp.email === this.formData.email
@@ -268,11 +272,13 @@ export class EmployeeForm extends LitElement {
     e.preventDefault();
 
     if (this.validateForm()) {
-      this.dispatchEvent(new CustomEvent('submit-form', {
-        detail: {
-          formData: this.formData
-        }
-      }));
+      this.dispatchEvent(
+        new CustomEvent('submit-form', {
+          detail: {
+            formData: this.formData,
+          },
+        })
+      );
     }
   }
 
@@ -368,6 +374,7 @@ export class EmployeeForm extends LitElement {
               placeholder="example@company.com"
               .value="${this.formData.email}"
               @input="${this.handleInputChange}"
+              ?disabled="${this.editMode}"
             />
             ${this.errors.email
               ? html`<div class="error">${this.errors.email}</div>`
@@ -414,10 +421,14 @@ export class EmployeeForm extends LitElement {
         </div>
 
         <div class="button-group">
-          <button type="button" class="cancel" @click="${this.handleCancelClick}">
+          <button
+            type="button"
+            class="cancel"
+            @click="${this.handleCancelClick}"
+          >
             Cancel
           </button>
-          <button type="submit">Add Employee</button>
+          <button type="submit">${this.editMode ? 'Update Employee' : 'Add Employee'}</button>
         </div>
       </form>
     `;
