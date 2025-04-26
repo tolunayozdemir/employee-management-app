@@ -1,6 +1,34 @@
 import {html, LitElement, css} from 'lit';
 
 export class NavigationContainer extends LitElement {
+  static get properties() {
+    return {
+      currentPath: {type: String},
+    };
+  }
+
+  constructor() {
+    super();
+    this.currentPath = window.location.pathname;
+
+    window.addEventListener(
+      'vaadin-router-location-changed',
+      this._handleLocationChanged
+    );
+  }
+
+  _handleLocationChanged(event) {
+    this.currentPath = event.detail.location.pathname;
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener(
+      'vaadin-router-location-changed',
+      this._handleLocationChanged
+    );
+  }
+
   static get styles() {
     return css`
       nav {
@@ -9,7 +37,7 @@ export class NavigationContainer extends LitElement {
         box-shadow: var(--box-shadow);
         border-radius: var(--radius-sm);
       }
-      
+
       ul {
         display: flex;
         list-style: none;
@@ -17,11 +45,11 @@ export class NavigationContainer extends LitElement {
         margin: 0;
         gap: 1.5rem;
       }
-      
+
       li {
         margin: 0;
       }
-      
+
       a {
         color: var(--text-color);
         text-decoration: none;
@@ -30,11 +58,15 @@ export class NavigationContainer extends LitElement {
         padding: 0.5rem 0;
         position: relative;
       }
-      
+
       a:hover {
         color: var(--primary-color);
       }
-      
+
+      a.active {
+        color: var(--primary-color);
+      }
+
       a::after {
         content: '';
         position: absolute;
@@ -45,19 +77,30 @@ export class NavigationContainer extends LitElement {
         background-color: var(--primary-color);
         transition: width var(--transition-default);
       }
-      
+
+      a.active::after,
       a:hover::after {
         width: 100%;
       }
     `;
   }
-  
+
   render() {
     return html`
       <nav>
         <ul>
-          <li><a href="/">Employee List</a></li>
-          <li><a href="/add-employee">Add Employee</a></li>
+          <li>
+            <a href="/" class=${this.currentPath === '/' ? 'active' : ''}
+              >Employee List</a
+            >
+          </li>
+          <li>
+            <a
+              href="/add-employee"
+              class=${this.currentPath === '/add-employee' ? 'active' : ''}
+              >Add Employee</a
+            >
+          </li>
         </ul>
       </nav>
     `;
