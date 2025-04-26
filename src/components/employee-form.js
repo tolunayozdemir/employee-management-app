@@ -238,7 +238,7 @@ export class EmployeeForm extends LitElement {
   }
 
   handleCancelClick() {
-    this.dispatchEvent(new CustomEvent('cancel'));
+    this.dispatchEvent(new CustomEvent('cancel-form'));
   }
 
   render() {

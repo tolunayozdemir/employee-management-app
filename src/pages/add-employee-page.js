@@ -49,7 +49,7 @@ export class AddEmployeePage extends LitElement {
       <div class="form-container">
         <h2>Add New Employee</h2>
         <employee-form 
-          @cancel=${this._handleCancel}
+          @cancel-form=${this._handleCancel}
           @submit-form=${this._handleFormSubmit}
         ></employee-form>
       </div>

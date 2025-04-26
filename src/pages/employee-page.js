@@ -203,6 +203,7 @@ export class EmployeePage extends LitElement {
           type="edit"
           .formData=${this.employeeToEdit}
           @submit-form=${this._handleFormSubmit}
+          @cancel-form=${this._onModalClosed}
         ></employee-form>`}
       </modal-dialog>
     </div>`;
