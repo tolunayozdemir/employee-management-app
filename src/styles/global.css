@@ -7,6 +7,7 @@
   --bg-light: #f0f0f0;
   --text-color: #333;
   --text-color-light: #6b7280;
+  --error-color: #e74c3c;
   --box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05);
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -24,5 +25,5 @@ html {
 
 main {
   min-height: 100vh;
-  padding: 3rem;
+  padding: 1rem 3rem;
 }

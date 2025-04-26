@@ -1,5 +1,10 @@
 import {LitElement, html, css} from 'lit';
 import store from '../store/store.js';
+import './form-input.js';
+import './form-select.js';
+
+const DEPARTMENTS = ['Analytics', 'Tech'];
+const POSITIONS = ['Junior', 'Medior', 'Senior'];
 
 export class EmployeeForm extends LitElement {
   static get properties() {
@@ -12,8 +17,6 @@ export class EmployeeForm extends LitElement {
 
   constructor() {
     super();
-    this.departments = ['Analytics', 'Tech'];
-    this.positions = ['Junior', 'Medior', 'Senior'];
     this.errors = {};
 
     this.formData = {
@@ -34,40 +37,6 @@ export class EmployeeForm extends LitElement {
 
   static get styles() {
     return css`
-      .form-group {
-        margin-bottom: 1.5rem;
-      }
-
-      label {
-        display: block;
-        font-weight: 500;
-        margin-bottom: 0.5rem;
-        color: #34495e;
-      }
-
-      input,
-      select {
-        width: 100%;
-        padding: 0.8rem;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 1rem;
-        transition: border-color 0.3s;
-      }
-
-      input:focus,
-      select:focus {
-        outline: none;
-        border-color: #3498db;
-      }
-
-      .error {
-        color: #e74c3c;
-        font-size: 0.9rem;
-        margin-top: 5px;
-      }
-
       .button-group {
         display: flex;
         justify-content: space-between;
@@ -76,7 +45,7 @@ export class EmployeeForm extends LitElement {
 
       button {
         padding: 0.8rem 1.4rem;
-        background-color: #3498db;
+        background-color: var(--primary-color);
         color: white;
         border: none;
         border-radius: 4px;
@@ -87,18 +56,16 @@ export class EmployeeForm extends LitElement {
       }
 
       button:hover {
-        background-color: #2980b9;
+        opacity: 0.9;
+      }
+      button:active {
+        opacity: 0.8;
       }
 
       button.cancel {
         background-color: #95a5a6;
       }
 
-      button.cancel:hover {
-        background-color: #7f8c8d;
-      }
-
-      /* Responsive styles */
       @media (max-width: 768px) {
         .form-container {
           padding: 1.5rem;
@@ -240,8 +207,8 @@ export class EmployeeForm extends LitElement {
   }
 
   handleInputChange(e) {
-    const field = e.target.name;
-    const value = e.target.value;
+    const field = e.detail.name;
+    const value = e.detail.value;
 
     this.formData = {
       ...this.formData,
@@ -278,134 +245,86 @@ export class EmployeeForm extends LitElement {
     return html`
       <form @submit="${this.handleSubmit}">
         <div class="form-row">
-          <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input
-              type="text"
-              id="firstName"
-              name="firstName"
-              .value="${this.formData.firstName}"
-              @input="${this.handleInputChange}"
-            />
-            ${this.errors.firstName
-              ? html`<div class="error">${this.errors.firstName}</div>`
-              : ''}
-          </div>
+          <form-input
+            label="First Name"
+            name="firstName"
+            .value="${this.formData.firstName}"
+            .error="${this.errors.firstName}"
+            @input-change="${this.handleInputChange}"
+          ></form-input>
 
-          <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input
-              type="text"
-              id="lastName"
-              name="lastName"
-              .value="${this.formData.lastName}"
-              @input="${this.handleInputChange}"
-            />
-            ${this.errors.lastName
-              ? html`<div class="error">${this.errors.lastName}</div>`
-              : ''}
-          </div>
+          <form-input
+            label="Last Name"
+            name="lastName"
+            .value="${this.formData.lastName}"
+            .error="${this.errors.lastName}"
+            @input-change="${this.handleInputChange}"
+          ></form-input>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="dateOfEmployment">Date of Employment</label>
-            <input
-              type="date"
-              id="dateOfEmployment"
-              name="dateOfEmployment"
-              .value="${this.formData.dateOfEmployment}"
-              @input="${this.handleInputChange}"
-            />
-            ${this.errors.dateOfEmployment
-              ? html`<div class="error">${this.errors.dateOfEmployment}</div>`
-              : ''}
-          </div>
+          <form-input
+            label="Date of Employment"
+            name="dateOfEmployment"
+            type="date"
+            .value="${this.formData.dateOfEmployment}"
+            .error="${this.errors.dateOfEmployment}"
+            @input-change="${this.handleInputChange}"
+          ></form-input>
 
-          <div class="form-group">
-            <label for="dateOfBirth">Date of Birth</label>
-            <input
-              type="date"
-              id="dateOfBirth"
-              name="dateOfBirth"
-              .value="${this.formData.dateOfBirth}"
-              @input="${this.handleInputChange}"
-            />
-            ${this.errors.dateOfBirth
-              ? html`<div class="error">${this.errors.dateOfBirth}</div>`
-              : ''}
-          </div>
+          <form-input
+            label="Date of Birth"
+            name="dateOfBirth"
+            type="date"
+            .value="${this.formData.dateOfBirth}"
+            .error="${this.errors.dateOfBirth}"
+            @input-change="${this.handleInputChange}"
+          ></form-input>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="+90XXXXXXXXXX"
-              .value="${this.formData.phone}"
-              @input="${this.handleInputChange}"
-            />
-            ${this.errors.phone
-              ? html`<div class="error">${this.errors.phone}</div>`
-              : ''}
-          </div>
+          <form-input
+            label="Phone Number"
+            name="phone"
+            type="tel"
+            placeholder="+90XXXXXXXXXX"
+            .value="${this.formData.phone}"
+            .error="${this.errors.phone}"
+            @input-change="${this.handleInputChange}"
+          ></form-input>
 
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="example@company.com"
-              .value="${this.formData.email}"
-              @input="${this.handleInputChange}"
-              ?disabled="${this.editMode}"
-            />
-            ${this.errors.email
-              ? html`<div class="error">${this.errors.email}</div>`
-              : ''}
-          </div>
+          <form-input
+            label="Email Address"
+            name="email"
+            type="email"
+            placeholder="example@company.com"
+            .value="${this.formData.email}"
+            .error="${this.errors.email}"
+            .disabled="${this.editMode}"
+            @input-change="${this.handleInputChange}"
+          ></form-input>
         </div>
 
         <div class="form-row">
-          <div class="form-group">
-            <label for="department">Department</label>
-            <select
-              id="department"
-              name="department"
-              .value="${this.formData.department}"
-              @change="${this.handleInputChange}"
-            >
-              <option value="" disabled selected>Select department</option>
-              ${this.departments.map(
-                (dept) => html` <option value="${dept}">${dept}</option> `
-              )}
-            </select>
-            ${this.errors.department
-              ? html`<div class="error">${this.errors.department}</div>`
-              : ''}
-          </div>
+          <form-select
+            label="Department"
+            name="department"
+            .options="${DEPARTMENTS}"
+            .value="${this.formData.department}"
+            placeholder="Select department"
+            .error="${this.errors.department}"
+            @select-change="${this.handleInputChange}"
+          ></form-select>
 
-          <div class="form-group">
-            <label for="position">Position</label>
-            <select
-              id="position"
-              name="position"
-              .value="${this.formData.position}"
-              @change="${this.handleInputChange}"
-            >
-              <option value="" disabled selected>Select position</option>
-              ${this.positions.map(
-                (pos) => html` <option value="${pos}">${pos}</option> `
-              )}
-            </select>
-            ${this.errors.position
-              ? html`<div class="error">${this.errors.position}</div>`
-              : ''}
-          </div>
+          <form-select
+            label="Position"
+            name="position"
+            .options="${POSITIONS}"
+            .value="${this.formData.position}"
+            placeholder="Select position"
+            .error="${this.errors.position}"
+            @select-change="${this.handleInputChange}"
+          ></form-select>
         </div>
 
         <div class="button-group">

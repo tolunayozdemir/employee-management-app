@@ -8,7 +8,6 @@ export class NavigationContainer extends LitElement {
         padding: 1rem;
         box-shadow: var(--box-shadow);
         border-radius: var(--radius-sm);
-        margin-bottom: 1.5rem;
       }
       
       ul {

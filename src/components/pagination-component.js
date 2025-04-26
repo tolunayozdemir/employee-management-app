@@ -63,8 +63,6 @@ export class PaginationComponent extends LitElement {
   _renderPageNumbers() {
     const totalPages = this.totalPages;
 
-    if (totalPages <= 1) return '';
-
     let pageNumbers = [];
     const currentPage = this.currentPage;
 
@@ -106,6 +104,8 @@ export class PaginationComponent extends LitElement {
   }
 
   render() {
+    if (this.totalPages <= 1) return '';
+
     return html`
       <div class="pagination">
         <button

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import './form-input.js';
 
 export class SearchBar extends LitElement {
   static get styles() {
@@ -7,34 +8,14 @@ export class SearchBar extends LitElement {
         margin-bottom: 1.5rem;
         width: 100%;
       }
-      
-      .form-input {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 0.75rem 1rem;
-        border: 0.0625rem solid var(--border-color);
-        border-radius: var(--radius-md);
-        font-size: 1rem;
-        box-shadow: var(--box-shadow);
-        outline: none;
-        transition: border-color var(--transition-default);
-      }
-      
-      .form-input:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.1875rem var(--primary-color-light);
-      }
-      
-      .form-input::placeholder {
-       opacity: 0.5;
-      }
     `;
   }
 
   static get properties() {
     return {
       placeholder: { type: String },
-      debounceTime: { type: Number }
+      debounceTime: { type: Number },
+      value: { type: String }
     };
   }
 
@@ -43,6 +24,7 @@ export class SearchBar extends LitElement {
     this.placeholder = 'Search...';
     this.debounceTime = 300;
     this._debounceTimeout = null;
+    this.value = '';
   }
 
   _handleInput(e) {
@@ -50,10 +32,12 @@ export class SearchBar extends LitElement {
       clearTimeout(this._debounceTimeout);
     }
     
+    this.value = e.detail.value;
+    
     this._debounceTimeout = setTimeout(() => {
       this.dispatchEvent(
         new CustomEvent('search-change', {
-          detail: { value: e.target.value },
+          detail: { value: this.value },
           bubbles: true,
           composed: true
         })
@@ -64,12 +48,12 @@ export class SearchBar extends LitElement {
   render() {
     return html`
       <div class="search-container">
-        <input
-          type="text"
-          class="form-input"
+        <form-input
+          name="search"
           placeholder="${this.placeholder}"
-          @input="${this._handleInput}"
-        />
+          .value="${this.value}"
+          @input-change="${this._handleInput}"
+        ></form-input>
       </div>
     `;
   }
