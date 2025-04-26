@@ -4,8 +4,27 @@ import store from '../store/store.js';
 export class EmployeeForm extends LitElement {
   static get properties() {
     return {
-      formData: {type: Object},
       type: {type: String},
+      formData: {type: Object},
+      errors: {type: Object},
+    };
+  }
+
+  constructor() {
+    super();
+    this.departments = ['Analytics', 'Tech'];
+    this.positions = ['Junior', 'Medior', 'Senior'];
+    this.errors = {};
+
+    this.formData = {
+      firstName: '',
+      lastName: '',
+      dateOfEmployment: '',
+      dateOfBirth: '',
+      phone: '',
+      email: '',
+      department: '',
+      position: '',
     };
   }
 
@@ -29,7 +48,7 @@ export class EmployeeForm extends LitElement {
       input,
       select {
         width: 100%;
-        padding: .8rem;
+        padding: 0.8rem;
         border: 1px solid #ddd;
         border-radius: 4px;
         box-sizing: border-box;
@@ -45,7 +64,7 @@ export class EmployeeForm extends LitElement {
 
       .error {
         color: #e74c3c;
-        font-size: .9rem;
+        font-size: 0.9rem;
         margin-top: 5px;
       }
 
@@ -56,7 +75,7 @@ export class EmployeeForm extends LitElement {
       }
 
       button {
-        padding: .8rem 1.4rem;
+        padding: 0.8rem 1.4rem;
         background-color: #3498db;
         color: white;
         border: none;
@@ -87,7 +106,7 @@ export class EmployeeForm extends LitElement {
 
         .button-group {
           flex-direction: column;
-          gap: .75rem;
+          gap: 0.75rem;
         }
 
         button {
@@ -107,37 +126,6 @@ export class EmployeeForm extends LitElement {
         }
       }
     `;
-  }
-
-  constructor() {
-    super();
-    this.departments = ['Analytics', 'Tech'];
-    this.positions = ['Junior', 'Medior', 'Senior'];
-    this.resetForm();
-  }
-
-  resetForm() {
-    this.formData = {
-      firstName: '',
-      lastName: '',
-      dateOfEmployment: '',
-      dateOfBirth: '',
-      phone: '',
-      email: '',
-      department: '',
-      position: '',
-    };
-
-    this.errors = {
-      firstName: '',
-      lastName: '',
-      dateOfEmployment: '',
-      dateOfBirth: '',
-      phone: '',
-      email: '',
-      department: '',
-      position: '',
-    };
   }
 
   validateForm() {
@@ -220,7 +208,7 @@ export class EmployeeForm extends LitElement {
     } else if (!emailRegex.test(this.formData.email)) {
       newErrors.email = 'Please enter a valid email address';
       isValid = false;
-    } else if ((!this.editMode)) {
+    } else if (!this.editMode) {
       const employeesState = store.getState().employees;
       const emailExists = employeesState.some(
         (emp) => emp.email === this.formData.email
@@ -428,7 +416,9 @@ export class EmployeeForm extends LitElement {
           >
             Cancel
           </button>
-          <button type="submit">${this.editMode ? 'Update Employee' : 'Add Employee'}</button>
+          <button type="submit">
+            ${this.editMode ? 'Update Employee' : 'Add Employee'}
+          </button>
         </div>
       </form>
     `;
