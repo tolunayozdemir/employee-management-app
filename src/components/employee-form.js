@@ -29,11 +29,11 @@ export class EmployeeForm extends LitElement {
       input,
       select {
         width: 100%;
-        padding: 10px;
+        padding: .8rem;
         border: 1px solid #ddd;
         border-radius: 4px;
         box-sizing: border-box;
-        font-size: 16px;
+        font-size: 1rem;
         transition: border-color 0.3s;
       }
 
@@ -45,7 +45,7 @@ export class EmployeeForm extends LitElement {
 
       .error {
         color: #e74c3c;
-        font-size: 14px;
+        font-size: .9rem;
         margin-top: 5px;
       }
 
@@ -56,13 +56,13 @@ export class EmployeeForm extends LitElement {
       }
 
       button {
-        padding: 12px 20px;
+        padding: .8rem 1.4rem;
         background-color: #3498db;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 500;
         transition: background-color 0.3s;
       }
@@ -87,7 +87,7 @@ export class EmployeeForm extends LitElement {
 
         .button-group {
           flex-direction: column;
-          gap: 10px;
+          gap: .75rem;
         }
 
         button {
@@ -98,7 +98,7 @@ export class EmployeeForm extends LitElement {
       .form-row {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 20px;
+        gap: 1.4rem;
       }
 
       @media (max-width: 600px) {

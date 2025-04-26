@@ -1,6 +1,6 @@
 import {DELETE_EMPLOYEE, ADD_EMPLOYEE, UPDATE_EMPLOYEE} from './actions.js';
 
-export const initialEmployees = Array.from({length: 100}, (_, index) => ({
+export const initialEmployees = Array.from({length: 1000}, (_, index) => ({
   id: index + 1,
   firstName: `John${index + 1}`,
   lastName: `Doe${index + 1}`,

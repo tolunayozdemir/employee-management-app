@@ -11,7 +11,7 @@ export class AddEmployeePage extends LitElement {
         display: block;
         max-width: 800px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 1.4rem;
         box-sizing: border-box;
       }
 
