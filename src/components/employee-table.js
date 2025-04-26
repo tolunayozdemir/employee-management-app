@@ -9,21 +9,36 @@ export class EmployeeList extends LitElement {
       table {
         width: 100%;
         border-collapse: collapse;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--box-shadow);
         background-color: var(--white);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
       }
 
       th,
       td {
         padding: 1.5rem;
         text-align: center;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 0.0625rem solid var(--border-color);
         font-weight: 400;
       }
 
       th {
         font-weight: 600;
         color: var(--primary-color);
+      }
+      
+      .action-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.25rem;
+        padding: 0.25rem;
+        transition: opacity var(--transition-default);
+      }
+
+      .action-btn:hover {
+        opacity: 0.7;
       }
     `;
   }
@@ -92,13 +107,13 @@ export class EmployeeList extends LitElement {
         <td>${employee.position}</td>
         <td class="actions-cell">
           <button
-            class="action-btn edit-btn"
+            class="action-btn"
             @click=${() => this._handleEditClick(employee)}
           >
             ✎
           </button>
           <button
-            class="action-btn delete-btn"
+            class="action-btn"
             @click=${() => this._handleDeleteClick(employee)}
           >
             🗑

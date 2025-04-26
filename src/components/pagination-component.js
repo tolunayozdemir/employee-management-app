@@ -42,7 +42,7 @@ export class PaginationComponent extends LitElement {
 
       .pagination button.active {
         background-color: var(--primary-color);
-        color: white;
+        color: var(--white);
         border-color: var(--primary-color);
       }
 

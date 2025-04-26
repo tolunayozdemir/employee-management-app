@@ -23,7 +23,7 @@ export class ModalDialog extends LitElement {
         z-index: 1000;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s, visibility 0.3s;
+        transition: opacity var(--transition-default), visibility var(--transition-default);
       }
       
       .modal-backdrop.open {
@@ -32,15 +32,15 @@ export class ModalDialog extends LitElement {
       }
       
       .modal-container {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        background-color: var(--white);
+        border-radius: var(--radius-md);
+        box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.15);
         width: 90%;
-        max-width: 700px;
+        max-width: 43.75rem;
         max-height: 90vh;
         overflow-y: auto;
-        transform: translateY(-20px);
-        transition: transform 0.3s;
+        transform: translateY(-1.25rem);
+        transition: transform var(--transition-default);
       }
       
       .modal-backdrop.open .modal-container {
@@ -52,14 +52,14 @@ export class ModalDialog extends LitElement {
         justify-content: space-between;
         align-items: center;
         padding: 1rem 1.5rem;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 0.0625rem solid var(--border-color);
       }
       
       .modal-title {
         margin: 0;
         font-size: 1.25rem;
         font-weight: 600;
-        color: #34495e;
+        color: var(--text-color);
       }
       
       .close-button {
@@ -68,12 +68,12 @@ export class ModalDialog extends LitElement {
         font-size: 1.5rem;
         cursor: pointer;
         padding: 0;
-        color: #95a5a6;
-        transition: color 0.2s;
+        color: var(--text-color-light);
+        transition: color var(--transition-default);
       }
       
       .close-button:hover {
-        color: #34495e;
+        color: var(--text-color);
       }
       
       .modal-body {

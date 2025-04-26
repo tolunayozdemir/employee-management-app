@@ -55,7 +55,7 @@ export class EmployeeListView extends LitElement {
 
       .employee-details {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
         gap: 1rem;
         margin-top: 0.5rem;
       }
@@ -67,12 +67,13 @@ export class EmployeeListView extends LitElement {
 
       .detail-label {
         font-size: 0.875rem;
-        color: #6b7280;
+        color: var(--text-color-light);
         margin-bottom: 0.25rem;
       }
 
       .detail-value {
         font-size: 1rem;
+        color: var(--text-color);
       }
     `;
   }
