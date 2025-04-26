@@ -1,23 +1,13 @@
-import {DELETE_EMPLOYEE, ADD_EMPLOYEE, UPDATE_EMPLOYEE} from './actions.js';
+import {
+  DELETE_EMPLOYEE,
+  ADD_EMPLOYEE,
+  UPDATE_EMPLOYEE,
+  SET_LANGUAGE,
+} from './actions.js';
 
-export const initialEmployees = Array.from({length: 1000}, (_, index) => ({
-  id: index + 1,
-  firstName: `John${index + 1}`,
-  lastName: `Doe${index + 1}`,
-  department: `John${index + 1}`,
-  position: `Doe${index + 1}`,
-  dateOfEmployment: `${2023 - Math.floor(index / 12)}-${String(
-    Math.floor(index % 12) + 1
-  ).padStart(2, '0')}-${String(Math.floor((index % 28) + 1)).padStart(2, '0')}`,
-  dateOfBirth: `${1990 - Math.floor(index / 10)}-${String(
-    Math.floor(index % 12) + 1
-  ).padStart(2, '0')}-${String(Math.floor((index % 28) + 1)).padStart(2, '0')}`,
-  phone: `+9055${String(2200000 + index).padStart(8, '0')}`,
-  email: `employee${index + 1}@company.com`,
-}));
-
-const initialState = {
-  employees: initialEmployees,
+export const initialState = {
+  employees: [],
+  language: 'en',
 };
 
 export const employeeReducer = (state = initialState, action) => {
@@ -56,13 +46,19 @@ export const employeeReducer = (state = initialState, action) => {
       };
     }
     case UPDATE_EMPLOYEE: {
-      const updatedEmployees = state.employees.map(employee => 
+      const updatedEmployees = state.employees.map((employee) =>
         employee.id === action.payload.id ? action.payload : employee
       );
-      
+
       return {
         ...state,
         employees: updatedEmployees,
+      };
+    }
+    case SET_LANGUAGE: {
+      return {
+        ...state,
+        language: action.payload,
       };
     }
     default:
