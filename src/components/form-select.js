@@ -1,4 +1,5 @@
 import {LitElement, html, css} from 'lit';
+import {I18n} from '../i18n/index.js';
 
 export class FormSelect extends LitElement {
   static get properties() {
@@ -20,7 +21,7 @@ export class FormSelect extends LitElement {
     this.name = '';
     this.value = '';
     this.options = [];
-    this.placeholder = 'Select an option';
+    this.placeholder = I18n.t('select.placeholder');
     this.disabled = false;
     this.error = '';
     this.required = false;

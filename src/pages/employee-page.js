@@ -6,6 +6,7 @@ import '../components/employee-form.js';
 import '../components/search-bar.js';
 import store from '../store/store.js';
 import {deleteEmployee, updateEmployee} from '../store/actions.js';
+import {I18n} from '../i18n/index.js';
 
 export class EmployeePage extends LitElement {
   static get styles() {
@@ -115,7 +116,7 @@ export class EmployeePage extends LitElement {
   }
 
   _onDelete(e) {
-    if (confirm('Are you sure you want to delete this employee?')) {
+    if (confirm(I18n.t('confirm.delete'))) {
       const employeeId = e.detail.id;
       store.dispatch(deleteEmployee(employeeId));
     }
@@ -137,7 +138,7 @@ export class EmployeePage extends LitElement {
   _handleFormSubmit(e) {
     const formData = e.detail.formData;
 
-    if (confirm('Are you sure you want to add this employee?')) {
+    if (confirm(I18n.t('confirm.update'))) {
       store.dispatch(updateEmployee(formData));
       this.isEmployeeModalOpen = false;
     }
@@ -166,27 +167,27 @@ export class EmployeePage extends LitElement {
   render() {
     return html`<div>
       <div class="header">
-        <h1>Employee List</h1>
+        <h1>${I18n.t('page.employeeList')}</h1>
 
         <div class="view-toggle">
           <button
             class="view-btn ${this.viewMode === 'table' ? 'active' : ''}"
             @click=${() => this._switchView('table')}
           >
-            Table View
+            ${I18n.t('button.tableView')}
           </button>
           <button
             class="view-btn ${this.viewMode === 'list' ? 'active' : ''}"
             @click=${() => this._switchView('list')}
           >
-            List View
+            ${I18n.t('button.listView')}
           </button>
         </div>
       </div>
 
       <div class="search-section">
         <search-bar
-          placeholder="Search employees..."
+          placeholder="${I18n.t('search.placeholder')}"
           debounceTime="300"
           @search-change=${this._handleSearch}
         ></search-bar>
@@ -196,6 +197,7 @@ export class EmployeePage extends LitElement {
 
       <modal-dialog
         .isOpen=${this.isEmployeeModalOpen}
+        .title="${I18n.t('modal.editEmployee')}"
         @modal-closed=${this._onModalClosed}
       >
         ${this.employeeToEdit &&

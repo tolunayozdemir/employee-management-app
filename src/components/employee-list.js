@@ -1,4 +1,5 @@
 import {html, LitElement, css} from 'lit';
+import {I18n} from '../i18n/index.js';
 
 const ITEMS_PER_PAGE = 50;
 
@@ -150,23 +151,23 @@ export class EmployeeListView extends LitElement {
         </div>
         <div class="employee-details">
           <div class="detail-item">
-            <span class="detail-label">Department</span>
+            <span class="detail-label">${I18n.t('card.department')}</span>
             <span class="detail-value">${employee.department}</span>
           </div>
           <div class="detail-item">
-            <span class="detail-label">Position</span>
+            <span class="detail-label">${I18n.t('card.position')}</span>
             <span class="detail-value">${employee.position}</span>
           </div>
           <div class="detail-item">
-            <span class="detail-label">Employment Date</span>
+            <span class="detail-label">${I18n.t('card.employmentDate')}</span>
             <span class="detail-value">${employee.dateOfEmployment}</span>
           </div>
           <div class="detail-item">
-            <span class="detail-label">Email</span>
+            <span class="detail-label">${I18n.t('card.email')}</span>
             <span class="detail-value">${employee.email}</span>
           </div>
           <div class="detail-item">
-            <span class="detail-label">Phone</span>
+            <span class="detail-label">${I18n.t('card.phone')}</span>
             <span class="detail-value">${employee.phone}</span>
           </div>
         </div>

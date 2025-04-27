@@ -1,6 +1,7 @@
 import {html, LitElement, css} from 'lit';
 import './pagination-component.js';
 import './employee-table-not-found.js';
+import {I18n} from '../i18n/index.js';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -146,15 +147,15 @@ export class EmployeeList extends LitElement {
             <th class="checkbox-cell">
               <input type="checkbox" @change=${this._handleSelectAll} />
             </th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date of Employment</th>
-            <th>Date of Birth</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Department</th>
-            <th>Position</th>
-            <th class="actions-cell">Actions</th>
+            <th>${I18n.t('table.firstName')}</th>
+            <th>${I18n.t('table.lastName')}</th>
+            <th>${I18n.t('table.dateOfEmployment')}</th>
+            <th>${I18n.t('table.dateOfBirth')}</th>
+            <th>${I18n.t('table.phone')}</th>
+            <th>${I18n.t('table.email')}</th>
+            <th>${I18n.t('table.department')}</th>
+            <th>${I18n.t('table.position')}</th>
+            <th class="actions-cell">${I18n.t('table.actions')}</th>
           </tr>
         </thead>
         <tbody>

@@ -1,5 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import './form-input.js';
+import {I18n} from '../i18n/index.js';
 
 export class SearchBar extends LitElement {
   static get styles() {
@@ -21,7 +22,7 @@ export class SearchBar extends LitElement {
 
   constructor() {
     super();
-    this.placeholder = 'Search...';
+    this.placeholder = I18n.t('search.placeholder');
     this.debounceTime = 300;
     this._debounceTimeout = null;
     this.value = '';

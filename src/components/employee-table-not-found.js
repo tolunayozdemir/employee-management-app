@@ -1,5 +1,6 @@
 import {html, LitElement, css} from 'lit';
 import {Router} from '@vaadin/router';
+import {I18n} from '../i18n/index.js';
 
 export class EmployeeTableNotFound extends LitElement {
   static get styles() {
@@ -63,9 +64,9 @@ export class EmployeeTableNotFound extends LitElement {
     return html`
       <div class="not-found-container">
         <div class="icon">👥</div>
-        <h3>No employees found</h3>
-        <p>There are currently no employees in the database.</p>
-        <button @click=${this._handleAddEmployeeClick}>Add Employee</button>
+        <h3>${I18n.t('empty.title')}</h3>
+        <p>${I18n.t('empty.message')}</p>
+        <button @click=${this._handleAddEmployeeClick}>${I18n.t('button.add')}</button>
       </div>
     `;
   }

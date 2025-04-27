@@ -3,6 +3,7 @@ import {Router} from '@vaadin/router';
 import store from '../store/store.js';
 import {addEmployee} from '../store/actions.js';
 import '../components/employee-form';
+import {I18n} from '../i18n/index.js';
 
 export class AddEmployeePage extends LitElement {
   static get styles() {
@@ -38,7 +39,7 @@ export class AddEmployeePage extends LitElement {
   _handleFormSubmit(e) {
     const formData = e.detail.formData;
 
-    if (confirm('Are you sure you want to add this employee?')) {
+    if (confirm(I18n.t('confirm.add'))) {
       store.dispatch(addEmployee(formData));
       Router.go('/');
     }
@@ -47,7 +48,7 @@ export class AddEmployeePage extends LitElement {
   render() {
     return html`
       <div class="form-container">
-        <h2>Add New Employee</h2>
+        <h2>${I18n.t('page.addEmployee')}</h2>
         <employee-form
           @cancel-form=${this._handleCancel}
           @submit-form=${this._handleFormSubmit}

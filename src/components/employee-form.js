@@ -2,6 +2,7 @@ import {LitElement, html, css} from 'lit';
 import store from '../store/store.js';
 import './form-input.js';
 import './form-select.js';
+import {I18n} from '../i18n/index.js';
 
 const DEPARTMENTS = ['Analytics', 'Tech'];
 const POSITIONS = ['Junior', 'Medior', 'Senior'];
@@ -100,28 +101,27 @@ export class EmployeeForm extends LitElement {
     const newErrors = {...this.errors};
 
     if (!this.formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
+      newErrors.firstName = I18n.t('error.required.firstName');
       isValid = false;
     } else {
       newErrors.firstName = '';
     }
 
     if (!this.formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+      newErrors.lastName = I18n.t('error.required.lastName');
       isValid = false;
     } else {
       newErrors.lastName = '';
     }
 
     if (!this.formData.dateOfEmployment) {
-      newErrors.dateOfEmployment = 'Date of employment is required';
+      newErrors.dateOfEmployment = I18n.t('error.required.dateOfEmployment');
       isValid = false;
     } else {
       const employmentDate = new Date(this.formData.dateOfEmployment);
       const today = new Date();
       if (employmentDate > today) {
-        newErrors.dateOfEmployment =
-          'Date of employment cannot be in the future';
+        newErrors.dateOfEmployment = I18n.t('error.future.dateOfEmployment');
         isValid = false;
       } else {
         newErrors.dateOfEmployment = '';
@@ -129,7 +129,7 @@ export class EmployeeForm extends LitElement {
     }
 
     if (!this.formData.dateOfBirth) {
-      newErrors.dateOfBirth = 'Date of birth is required';
+      newErrors.dateOfBirth = I18n.t('error.required.dateOfBirth');
       isValid = false;
     } else {
       const birthDate = new Date(this.formData.dateOfBirth);
@@ -144,13 +144,13 @@ export class EmployeeForm extends LitElement {
       }
 
       if (birthDate > today) {
-        newErrors.dateOfBirth = 'Date of birth cannot be in the future';
+        newErrors.dateOfBirth = I18n.t('error.future.dateOfBirth');
         isValid = false;
       } else if (age < minAge) {
-        newErrors.dateOfBirth = 'Employee must be at least 18 years old';
+        newErrors.dateOfBirth = I18n.t('error.tooYoung');
         isValid = false;
       } else if (age > maxAge) {
-        newErrors.dateOfBirth = 'Please enter a valid date of birth';
+        newErrors.dateOfBirth = I18n.t('error.tooOld');
         isValid = false;
       } else {
         newErrors.dateOfBirth = '';
@@ -159,10 +159,10 @@ export class EmployeeForm extends LitElement {
 
     const phoneRegex = /^\+?\d{10,15}$/;
     if (!this.formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = I18n.t('error.required.phone');
       isValid = false;
     } else if (!phoneRegex.test(this.formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number (10-15 digits)';
+      newErrors.phone = I18n.t('error.invalid.phone');
       isValid = false;
     } else {
       newErrors.phone = '';
@@ -170,10 +170,10 @@ export class EmployeeForm extends LitElement {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!this.formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = I18n.t('error.required.email');
       isValid = false;
     } else if (!emailRegex.test(this.formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = I18n.t('error.invalid.email');
       isValid = false;
     } else if (!this.editMode) {
       const employeesState = store.getState().employees;
@@ -181,7 +181,7 @@ export class EmployeeForm extends LitElement {
         (emp) => emp.email === this.formData.email
       );
       if (emailExists) {
-        newErrors.email = 'This email address is already registered';
+        newErrors.email = I18n.t('error.duplicate.email');
         isValid = false;
       } else {
         newErrors.email = '';
@@ -189,14 +189,14 @@ export class EmployeeForm extends LitElement {
     }
 
     if (!this.formData.department) {
-      newErrors.department = 'Department is required';
+      newErrors.department = I18n.t('error.required.department');
       isValid = false;
     } else {
       newErrors.department = '';
     }
 
     if (!this.formData.position) {
-      newErrors.position = 'Position is required';
+      newErrors.position = I18n.t('error.required.position');
       isValid = false;
     } else {
       newErrors.position = '';
@@ -246,7 +246,7 @@ export class EmployeeForm extends LitElement {
       <form @submit="${this.handleSubmit}">
         <div class="form-row">
           <form-input
-            label="First Name"
+            label="${I18n.t('form.firstName')}"
             name="firstName"
             .value="${this.formData.firstName}"
             .error="${this.errors.firstName}"
@@ -254,7 +254,7 @@ export class EmployeeForm extends LitElement {
           ></form-input>
 
           <form-input
-            label="Last Name"
+            label="${I18n.t('form.lastName')}"
             name="lastName"
             .value="${this.formData.lastName}"
             .error="${this.errors.lastName}"
@@ -264,7 +264,7 @@ export class EmployeeForm extends LitElement {
 
         <div class="form-row">
           <form-input
-            label="Date of Employment"
+            label="${I18n.t('form.dateOfEmployment')}"
             name="dateOfEmployment"
             type="date"
             .value="${this.formData.dateOfEmployment}"
@@ -273,7 +273,7 @@ export class EmployeeForm extends LitElement {
           ></form-input>
 
           <form-input
-            label="Date of Birth"
+            label="${I18n.t('form.dateOfBirth')}"
             name="dateOfBirth"
             type="date"
             .value="${this.formData.dateOfBirth}"
@@ -284,20 +284,20 @@ export class EmployeeForm extends LitElement {
 
         <div class="form-row">
           <form-input
-            label="Phone Number"
+            label="${I18n.t('form.phone')}"
             name="phone"
             type="tel"
-            placeholder="+90XXXXXXXXXX"
+            placeholder="${I18n.t('form.phoneFormat')}"
             .value="${this.formData.phone}"
             .error="${this.errors.phone}"
             @input-change="${this.handleInputChange}"
           ></form-input>
 
           <form-input
-            label="Email Address"
+            label="${I18n.t('form.email')}"
             name="email"
             type="email"
-            placeholder="example@company.com"
+            placeholder="${I18n.t('form.emailFormat')}"
             .value="${this.formData.email}"
             .error="${this.errors.email}"
             .disabled="${this.editMode}"
@@ -307,21 +307,21 @@ export class EmployeeForm extends LitElement {
 
         <div class="form-row">
           <form-select
-            label="Department"
+            label="${I18n.t('form.department')}"
             name="department"
             .options="${DEPARTMENTS}"
             .value="${this.formData.department}"
-            placeholder="Select department"
+            placeholder="${I18n.t('form.selectDepartment')}"
             .error="${this.errors.department}"
             @select-change="${this.handleInputChange}"
           ></form-select>
 
           <form-select
-            label="Position"
+            label="${I18n.t('form.position')}"
             name="position"
             .options="${POSITIONS}"
             .value="${this.formData.position}"
-            placeholder="Select position"
+            placeholder="${I18n.t('form.selectPosition')}"
             .error="${this.errors.position}"
             @select-change="${this.handleInputChange}"
           ></form-select>
@@ -333,10 +333,10 @@ export class EmployeeForm extends LitElement {
             class="cancel"
             @click="${this.handleCancelClick}"
           >
-            Cancel
+            ${I18n.t('button.cancel')}
           </button>
           <button type="submit">
-            ${this.editMode ? 'Update Employee' : 'Add Employee'}
+            ${this.editMode ? I18n.t('button.update') : I18n.t('button.add')}
           </button>
         </div>
       </form>
