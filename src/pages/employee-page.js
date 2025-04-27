@@ -53,31 +53,31 @@ export class EmployeePage extends LitElement {
 
   static get properties() {
     return {
-      employees: {type: Array},
-      filteredEmployees: {type: Array, state: true},
-      employeeToEdit: {type: Object},
-      employeeToDelete: {type: Object},
-      isEmployeeModalOpen: {type: Boolean},
-      viewMode: {type: String, state: true},
-      searchTerm: {type: String, state: true},
-      isConfirmModalOpen: {type: Boolean},
-      onConfirmDelete: {type: Function},
-      onCancelDelete: {type: Function},
+      _employees: {type: Array},
+      _filteredEmployees: {type: Array, state: true},
+      _employeeToEdit: {type: Object},
+      _isEmployeeModalOpen: {type: Boolean},
+      _viewMode: {type: String, state: true},
+      _searchTerm: {type: String, state: true},
+      _isConfirmModalOpen: {type: Boolean},
+      _confirmMessage: {type: String},
+      _onConfirm: {type: Function},
+      _onCancel: {type: Function},
     };
   }
 
   constructor() {
     super();
-    this.viewMode = 'table';
-    this.searchTerm = '';
-    this.employees = [];
-    this.filteredEmployees = [];
-    this.employeeToEdit = undefined;
-    this.employeeToDelete = undefined;
-    this.isEmployeeModalOpen = false;
-    this.isConfirmModalOpen = false;
-    this.onConfirmDelete = () => {};
-    this.onCancelDelete = () => {};
+    this._viewMode = 'table';
+    this._searchTerm = '';
+    this._employees = [];
+    this._filteredEmployees = [];
+    this._employeeToEdit = undefined;
+    this._isEmployeeModalOpen = false;
+    this._isConfirmModalOpen = false;
+    this._confirmMessage = '';
+    this._onConfirm = () => {};
+    this._onCancel = () => {};
   }
 
   connectedCallback() {
@@ -96,76 +96,94 @@ export class EmployeePage extends LitElement {
   }
 
   _onEmployeeListChange(employee) {
-    this.employees = employee;
+    this._employees = employee;
     this._filterEmployees();
   }
 
   _filterEmployees() {
-    if (!this.searchTerm) {
-      this.filteredEmployees = this.employees;
+    if (!this._searchTerm) {
+      this._filteredEmployees = this._employees;
       return;
     }
 
-    const searchTermLower = this.searchTerm.toLowerCase();
-    this.filteredEmployees = this.employees.filter((employee) => {
+    const _searchTermLower = this._searchTerm.toLowerCase();
+    this._filteredEmployees = this._employees.filter((employee) => {
       return (
-        employee.firstName.toLowerCase().includes(searchTermLower) ||
-        employee.lastName.toLowerCase().includes(searchTermLower) ||
-        employee.department.toLowerCase().includes(searchTermLower) ||
-        employee.position.toLowerCase().includes(searchTermLower) ||
-        employee.email.toLowerCase().includes(searchTermLower) ||
-        (employee.phone && employee.phone.includes(searchTermLower))
+        employee.firstName.toLowerCase().includes(_searchTermLower) ||
+        employee.lastName.toLowerCase().includes(_searchTermLower) ||
+        employee.department.toLowerCase().includes(_searchTermLower) ||
+        employee.position.toLowerCase().includes(_searchTermLower) ||
+        employee.email.toLowerCase().includes(_searchTermLower) ||
+        (employee.phone && employee.phone.includes(_searchTermLower))
       );
     });
   }
 
   _handleSearch(e) {
-    this.searchTerm = e.detail.value;
+    this._searchTerm = e.detail.value;
     this._filterEmployees();
   }
 
   _onDelete(e) {
-    this.isConfirmModalOpen = true;
-    this.employeeToDelete = e.detail.row;
+    const _employeeToDelete = e.detail.row;
     const employeeId = e.detail.row.id;
-    
-    this.onConfirmDelete = () => {
+
+    this._confirmMessage = I18n.t('confirm.delete', {
+      firstName: _employeeToDelete?.firstName,
+      lastName: _employeeToDelete?.lastName,
+    });
+
+    this._onConfirm = () => {
       store.dispatch(deleteEmployee(employeeId));
+      this._isConfirmModalOpen = false;
     };
-    this.onCancelDelete = () => {
-      this.isConfirmModalOpen = false;
+    this._onCancel = () => {
+      this._isConfirmModalOpen = false;
     };
-    // if (confirm(I18n.t('confirm.delete'))) {
-    // }
+
+    this._isConfirmModalOpen = true;
   }
 
   _onEdit(e) {
-    this.employeeToEdit = e.detail;
-    this.isEmployeeModalOpen = true;
+    this._employeeToEdit = e.detail;
+    this._isEmployeeModalOpen = true;
   }
 
   _onModalClosed() {
-    this.isEmployeeModalOpen = false;
+    this._isEmployeeModalOpen = false;
   }
 
   _switchView(mode) {
-    this.viewMode = mode;
+    this._viewMode = mode;
   }
 
   _handleFormSubmit(e) {
-    const formData = e.detail.formData;
+    console.log(e)
+    const _employeeToUpdate = e.detail.formData;
 
-    if (confirm(I18n.t('confirm.update'))) {
-      store.dispatch(updateEmployee(formData));
-      this.isEmployeeModalOpen = false;
-    }
+    this._confirmMessage = I18n.t('confirm.update', {
+      firstName: _employeeToUpdate?.firstName,
+      lastName: _employeeToUpdate?.lastName,
+    });
+
+    this._onConfirm = () => {
+      store.dispatch(updateEmployee(_employeeToUpdate));
+      this._isEmployeeModalOpen = false;
+      this._isConfirmModalOpen = false;
+    };
+
+    this._onCancel = () => {
+      this._isConfirmModalOpen = false;
+    };
+
+    this._isConfirmModalOpen = true;
   }
 
   _renderCurrentView() {
-    if (this.viewMode === 'table') {
+    if (this._viewMode === 'table') {
       return html`
         <employee-table
-          .employees=${this.filteredEmployees}
+          .employees=${this._filteredEmployees}
           @employee-delete=${this._onDelete}
           @employee-edit=${this._onEdit}
         ></employee-table>
@@ -173,7 +191,7 @@ export class EmployeePage extends LitElement {
     } else {
       return html`
         <employee-list
-          .employees=${this.filteredEmployees}
+          .employees=${this._filteredEmployees}
           @employee-delete=${this._onDelete}
           @employee-edit=${this._onEdit}
         ></employee-list>
@@ -188,13 +206,13 @@ export class EmployeePage extends LitElement {
 
         <div class="view-toggle">
           <button
-            class="view-btn ${this.viewMode === 'table' ? 'active' : ''}"
+            class="view-btn ${this._viewMode === 'table' ? 'active' : ''}"
             @click=${() => this._switchView('table')}
           >
             ${I18n.t('button.tableView')}
           </button>
           <button
-            class="view-btn ${this.viewMode === 'list' ? 'active' : ''}"
+            class="view-btn ${this._viewMode === 'list' ? 'active' : ''}"
             @click=${() => this._switchView('list')}
           >
             ${I18n.t('button.listView')}
@@ -213,27 +231,24 @@ export class EmployeePage extends LitElement {
       ${this._renderCurrentView()}
 
       <modal-dialog
-        .isOpen=${this.isEmployeeModalOpen}
+        .isOpen=${this._isEmployeeModalOpen}
         .title="${I18n.t('modal.editEmployee')}"
         @modal-closed=${this._onModalClosed}
       >
-        ${this.employeeToEdit &&
+        ${this._employeeToEdit &&
         html`<employee-form
           type="edit"
-          .formData=${this.employeeToEdit}
+          .formData=${this._employeeToEdit}
           @submit-form=${this._handleFormSubmit}
           @cancel-form=${this._onModalClosed}
         ></employee-form>`}
       </modal-dialog>
 
       <confirmation-dialog
-        .open=${this.isConfirmModalOpen}
-        .message="${I18n.t('confirm.delete', {
-          firstName: this.employeeToDelete?.firstName,
-          lastName: this.employeeToDelete?.lastName,
-        })}"
-        @cancel=${this.onCancelDelete}
-        @confirm=${this.onConfirmDelete}
+        .open=${this._isConfirmModalOpen}
+        .message="${this._confirmMessage}"
+        @cancel=${this._onCancel}
+        @confirm=${this._onConfirm}
       ></confirmation-dialog>
     </div>`;
   }

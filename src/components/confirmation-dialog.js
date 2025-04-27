@@ -17,6 +17,7 @@ export class ConfirmationDialog extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 1000;
     }
     .dialog {
       background: white;
