@@ -1,6 +1,6 @@
 import {html, LitElement, css} from 'lit';
 import {Router} from '@vaadin/router';
-import {I18n} from '../i18n/index.js';
+import {I18n} from '../../i18n/index.js';
 
 export class EmployeeNotFound extends LitElement {
   static get styles() {

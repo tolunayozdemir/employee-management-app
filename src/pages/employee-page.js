@@ -5,6 +5,8 @@ import '../components/form/employee-form.js';
 import '../components/search-bar/index.js';
 import '../components/dialog/modal-dialog.js';
 import '../components/dialog/confirmation-dialog.js';
+import '../components/not-found/employee-not-found.js';
+
 import store from '../store/store.js';
 import {deleteEmployee, updateEmployee} from '../store/actions.js';
 import {I18n} from '../i18n/index.js';
