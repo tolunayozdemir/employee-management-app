@@ -1,6 +1,6 @@
 import {html, LitElement, css} from 'lit';
 import {Router} from '@vaadin/router';
-import store from '../../store/store.js';
+import store from '../store/store.js';
 import {addEmployee} from '../store/actions.js';
 import '../components/form/employee-form.js';
 import '../components/dialog/confirmation-dialog.js';
