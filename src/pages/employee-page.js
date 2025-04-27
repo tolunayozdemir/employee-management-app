@@ -4,6 +4,7 @@ import '../components/employee-list.js';
 import '../components/modal-dialog.js';
 import '../components/employee-form.js';
 import '../components/search-bar.js';
+import '../components/confirmation-dialog.js';
 import store from '../store/store.js';
 import {deleteEmployee, updateEmployee} from '../store/actions.js';
 import {I18n} from '../i18n/index.js';
@@ -55,20 +56,28 @@ export class EmployeePage extends LitElement {
       employees: {type: Array},
       filteredEmployees: {type: Array, state: true},
       employeeToEdit: {type: Object},
+      employeeToDelete: {type: Object},
       isEmployeeModalOpen: {type: Boolean},
       viewMode: {type: String, state: true},
       searchTerm: {type: String, state: true},
+      isConfirmModalOpen: {type: Boolean},
+      onConfirmDelete: {type: Function},
+      onCancelDelete: {type: Function},
     };
   }
 
   constructor() {
     super();
     this.viewMode = 'table';
+    this.searchTerm = '';
     this.employees = [];
     this.filteredEmployees = [];
     this.employeeToEdit = undefined;
+    this.employeeToDelete = undefined;
     this.isEmployeeModalOpen = false;
-    this.searchTerm = '';
+    this.isConfirmModalOpen = false;
+    this.onConfirmDelete = () => {};
+    this.onCancelDelete = () => {};
   }
 
   connectedCallback() {
@@ -116,10 +125,18 @@ export class EmployeePage extends LitElement {
   }
 
   _onDelete(e) {
-    if (confirm(I18n.t('confirm.delete'))) {
-      const employeeId = e.detail.id;
+    this.isConfirmModalOpen = true;
+    this.employeeToDelete = e.detail.row;
+    const employeeId = e.detail.row.id;
+    
+    this.onConfirmDelete = () => {
       store.dispatch(deleteEmployee(employeeId));
-    }
+    };
+    this.onCancelDelete = () => {
+      this.isConfirmModalOpen = false;
+    };
+    // if (confirm(I18n.t('confirm.delete'))) {
+    // }
   }
 
   _onEdit(e) {
@@ -208,6 +225,16 @@ export class EmployeePage extends LitElement {
           @cancel-form=${this._onModalClosed}
         ></employee-form>`}
       </modal-dialog>
+
+      <confirmation-dialog
+        .open=${this.isConfirmModalOpen}
+        .message="${I18n.t('confirm.delete', {
+          firstName: this.employeeToDelete?.firstName,
+          lastName: this.employeeToDelete?.lastName,
+        })}"
+        @cancel=${this.onCancelDelete}
+        @confirm=${this.onConfirmDelete}
+      ></confirmation-dialog>
     </div>`;
   }
 }

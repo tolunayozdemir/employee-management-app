@@ -66,20 +66,23 @@ export const en = {
   'button.listView': 'List View',
 
   // Confirmations
-  'confirm.add': 'Are you sure you want to add this employee?',
-  'confirm.update': 'Are you sure you want to update this employee?',
-  'confirm.delete': 'Are you sure you want to delete this employee?',
+  'confirm.add':
+    'Selected Employee record of {{firstName}} {{lastName}} will be added.',
+  'confirm.update':
+    'Selected Employee record of {{firstName}} {{lastName}} will be updated.',
+  'confirm.delete':
+    'Selected Employee record of {{firstName}} {{lastName}} will be deleted.',
 
   // Empty States
   'empty.title': 'No employees found',
   'empty.message': 'There are currently no employees in the database.',
-  
+
   // Search
   'search.placeholder': 'Search employees...',
 
-  // Select input 
+  // Select input
   'select.placeholder': 'Select an option',
 
   // Modal
-  'modal.editEmployee': 'Edit Employee'
+  'modal.editEmployee': 'Edit Employee',
 };

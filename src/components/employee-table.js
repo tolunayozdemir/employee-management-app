@@ -82,7 +82,7 @@ export class EmployeeList extends LitElement {
   _handleDeleteClick(row) {
     this.dispatchEvent(
       new CustomEvent('employee-delete', {
-        detail: {id: row.id},
+        detail: {row},
       })
     );
   }

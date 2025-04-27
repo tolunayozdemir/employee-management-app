@@ -6,6 +6,8 @@ export class I18n {
   static t(key, params = {}) {
     const language = this.getLanguage();
 
+    console.log(params)
+
     const translationData = translations[language];
 
     let translatedText = translationData[key] || key;

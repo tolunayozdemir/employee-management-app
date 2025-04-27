@@ -49,7 +49,8 @@ export const tr = {
   'error.tooYoung': 'Çalışan en az 18 yaşında olmalıdır',
   'error.tooOld': 'Lütfen geçerli bir doğum tarihi girin',
   'error.required.phone': 'Telefon numarası zorunludur',
-  'error.invalid.phone': 'Lütfen geçerli bir telefon numarası girin (10-15 rakam)',
+  'error.invalid.phone':
+    'Lütfen geçerli bir telefon numarası girin (10-15 rakam)',
   'error.required.email': 'E-posta adresi zorunludur',
   'error.invalid.email': 'Lütfen geçerli bir e-posta adresi girin',
   'error.duplicate.email': 'Bu e-posta adresi zaten kayıtlı',
@@ -66,20 +67,23 @@ export const tr = {
   'button.listView': 'Liste Görünümü',
 
   // Confirmations
-  'confirm.add': 'Bu çalışanı eklemek istediğinizden emin misiniz?',
-  'confirm.update': 'Bu çalışanı güncellemek istediğinizden emin misiniz?',
-  'confirm.delete': 'Bu çalışanı silmek istediğinizden emin misiniz?',
+  'confirm.add':
+    '{{firstName}} {{lastName}} isimli çalışan kaydı eklenecek.',
+  'confirm.update':
+    '{{firstName}} {{lastName}} isimli çalışan kaydı güncellenecek.',
+  'confirm.delete':
+    '{{firstName}} {{lastName}} isimli çalışan kaydı silinecek.',
 
   // Empty States
   'empty.title': 'Çalışan bulunamadı',
   'empty.message': 'Veritabanında henüz çalışan bulunmamaktadır.',
-  
+
   // Search
   'search.placeholder': 'Çalışan ara...',
 
   // Select input
   'select.placeholder': 'Bir seçenek seçin',
-  
+
   // Modal
-  'modal.editEmployee': 'Çalışanı Düzenle'
+  'modal.editEmployee': 'Çalışanı Düzenle',
 };
