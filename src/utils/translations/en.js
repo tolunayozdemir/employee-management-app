@@ -64,6 +64,7 @@ export const en = {
   'button.edit': 'Edit',
   'button.tableView': 'Table View',
   'button.listView': 'List View',
+  'button.proceed': 'Proceed',
 
   // Confirmations
   'confirm.add':
@@ -72,6 +73,7 @@ export const en = {
     'Selected Employee record of {{firstName}} {{lastName}} will be updated.',
   'confirm.delete':
     'Selected Employee record of {{firstName}} {{lastName}} will be deleted.',
+  'confirm.title': 'Are you sure?',
 
   // Empty States
   'empty.title': 'No employees found',

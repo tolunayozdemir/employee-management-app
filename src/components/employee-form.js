@@ -49,7 +49,7 @@ export class EmployeeForm extends LitElement {
         background-color: var(--primary-color);
         color: white;
         border: none;
-        border-radius: 4px;
+        border-radius: var(--radius-md);
         cursor: pointer;
         font-size: 1rem;
         font-weight: 500;

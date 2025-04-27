@@ -65,6 +65,7 @@ export const tr = {
   'button.edit': 'Düzenle',
   'button.tableView': 'Tablo Görünümü',
   'button.listView': 'Liste Görünümü',
+  'button.proceed': 'Devam Et',
 
   // Confirmations
   'confirm.add':
@@ -73,6 +74,7 @@ export const tr = {
     '{{firstName}} {{lastName}} isimli çalışan kaydı güncellenecek.',
   'confirm.delete':
     '{{firstName}} {{lastName}} isimli çalışan kaydı silinecek.',
+  'confirm.title': 'Emin misiniz?',
 
   // Empty States
   'empty.title': 'Çalışan bulunamadı',
