@@ -1,7 +1,7 @@
 import {html, LitElement, css} from 'lit';
-import './pagination/pagination-component.js';
-import {I18n} from '../i18n/index.js';
-import {formatPhoneNumber, formatDate} from '../utils/formatters.js';
+import '../pagination/pagination-component.js';
+import {I18n} from '../../i18n/index.js';
+import {formatPhoneNumber, formatDate} from '../../utils/formatters.js';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -63,6 +63,18 @@ export class EmployeeList extends LitElement {
 
       .action-btn:hover {
         opacity: 0.7;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
       }
 
       @media (max-width: 1024px) {
@@ -161,7 +173,16 @@ export class EmployeeList extends LitElement {
     return html`
       <tr>
         <td class="checkbox-cell">
-          <input type="checkbox" .value=${employee.id} />
+          <label class="sr-only" for="employee-${employee.id}">
+            Select ${employee.firstName} ${employee.lastName}
+          </label>
+          <input 
+            type="checkbox" 
+            id="employee-${employee.id}" 
+            name="employee-${employee.id}"
+            .value=${employee.id} 
+            aria-label="Select ${employee.firstName} ${employee.lastName}"
+          />
         </td>
         <td class="name-cell">${employee.firstName}</td>
         <td class="name-cell">${employee.lastName}</td>
@@ -175,12 +196,14 @@ export class EmployeeList extends LitElement {
           <button
             class="action-btn"
             @click=${() => this._handleEditClick(employee)}
+            aria-label="Edit ${employee.firstName} ${employee.lastName}"
           >
             ✎
           </button>
           <button
             class="action-btn"
             @click=${() => this._handleDeleteClick(employee)}
+            aria-label="Delete ${employee.firstName} ${employee.lastName}"
           >
             🗑
           </button>
@@ -196,7 +219,14 @@ export class EmployeeList extends LitElement {
           <thead>
             <tr>
               <th class="checkbox-cell">
-                <input type="checkbox" @change=${this._handleSelectAll} />
+                <span id="select-all-label" class="sr-only">${I18n.t('table.selectAll')}</span>
+                <input 
+                  type="checkbox" 
+                  id="select-all"
+                  name="select-all"
+                  @change=${this._handleSelectAll} 
+                  aria-labelledby="select-all-label"
+                />
               </th>
               <th>${I18n.t('table.firstName')}</th>
               <th>${I18n.t('table.lastName')}</th>

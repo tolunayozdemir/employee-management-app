@@ -1,5 +1,5 @@
 import {LitElement, html, css} from 'lit';
-import '../components/employee-table.js';
+import '../components/employee-table/employee-table.js';
 import '../components/employee-list/employee-list.js';
 import '../components/form/employee-form.js';
 import '../components/search-bar/index.js';
