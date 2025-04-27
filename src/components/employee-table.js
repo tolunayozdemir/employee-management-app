@@ -8,6 +8,16 @@ const ITEMS_PER_PAGE = 10;
 export class EmployeeList extends LitElement {
   static get styles() {
     return css`
+      :host {
+        display: block;
+        overflow-x: auto;
+      }
+
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
       table {
         width: 100%;
         border-collapse: collapse;
@@ -15,6 +25,8 @@ export class EmployeeList extends LitElement {
         background-color: var(--white);
         border-radius: var(--radius-sm);
         overflow: hidden;
+        min-width: 800px;
+        font-size: 1rem;
       }
 
       th,
@@ -32,7 +44,7 @@ export class EmployeeList extends LitElement {
 
       .checkbox-cell {
         width: 2.5rem;
-        padding: 0;
+        padding: 0.5rem;
         text-align: right;
       }
 
@@ -47,6 +59,46 @@ export class EmployeeList extends LitElement {
 
       .action-btn:hover {
         opacity: 0.7;
+      }
+
+      @media (max-width: 1024px) {
+        table {
+          font-size: 0.95rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        table {
+          font-size: 0.9rem;
+        }
+        
+        td, th {
+          padding: 1rem 0.5rem;
+        }
+        
+        .action-btn {
+          font-size: 1.1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        table {
+          font-size: 0.85rem;
+        }
+        
+        td, th {
+          padding: 0.75rem 0.35rem;
+        }
+        
+        .action-btn {
+          font-size: 1rem;
+          padding: 0.15rem;
+        }
+        
+        .pagination-wrapper {
+          overflow-x: auto;
+          font-size: 0.85rem;
+        }
       }
     `;
   }
@@ -141,35 +193,39 @@ export class EmployeeList extends LitElement {
     }
 
     return html`
-      <table class="employee-table">
-        <thead>
-          <tr>
-            <th class="checkbox-cell">
-              <input type="checkbox" @change=${this._handleSelectAll} />
-            </th>
-            <th>${I18n.t('table.firstName')}</th>
-            <th>${I18n.t('table.lastName')}</th>
-            <th>${I18n.t('table.dateOfEmployment')}</th>
-            <th>${I18n.t('table.dateOfBirth')}</th>
-            <th>${I18n.t('table.phone')}</th>
-            <th>${I18n.t('table.email')}</th>
-            <th>${I18n.t('table.department')}</th>
-            <th>${I18n.t('table.position')}</th>
-            <th class="actions-cell">${I18n.t('table.actions')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${this._getDisplayedEmployees().map((employee) =>
-            this._renderEmployeeRow(employee)
-          )}
-        </tbody>
-      </table>
-      <pagination-component
-        @page-changed=${this._handlePageChange}
-        .currentPage=${this.currentPage}
-        .totalPages=${this._getTotalPages()}
-        .itemsPerPage=${ITEMS_PER_PAGE}
-      ></pagination-component>
+      <div class="table-container">
+        <table class="employee-table">
+          <thead>
+            <tr>
+              <th class="checkbox-cell">
+                <input type="checkbox" @change=${this._handleSelectAll} />
+              </th>
+              <th>${I18n.t('table.firstName')}</th>
+              <th>${I18n.t('table.lastName')}</th>
+              <th>${I18n.t('table.dateOfEmployment')}</th>
+              <th>${I18n.t('table.dateOfBirth')}</th>
+              <th>${I18n.t('table.phone')}</th>
+              <th>${I18n.t('table.email')}</th>
+              <th>${I18n.t('table.department')}</th>
+              <th>${I18n.t('table.position')}</th>
+              <th class="actions-cell">${I18n.t('table.actions')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${this._getDisplayedEmployees().map((employee) =>
+              this._renderEmployeeRow(employee)
+            )}
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-wrapper">
+        <pagination-component
+          @page-changed=${this._handlePageChange}
+          .currentPage=${this.currentPage}
+          .totalPages=${this._getTotalPages()}
+          .itemsPerPage=${ITEMS_PER_PAGE}
+        ></pagination-component>
+      </div>
     `;
   }
 }

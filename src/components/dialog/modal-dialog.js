@@ -35,12 +35,12 @@ export class ModalDialog extends LitElement {
       .modal-container {
         background-color: var(--white);
         border-radius: var(--radius-md);
-        box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.15);
+        box-shadow: 0 var(--spacing-xs) var(--spacing-lg) rgba(0, 0, 0, 0.15);
         width: 90%;
         max-width: 43.75rem;
         max-height: 90vh;
         overflow-y: auto;
-        transform: translateY(-1.25rem);
+        transform: translateY(calc(-1 * var(--spacing-lg)));
         transition: transform var(--transition-default);
       }
 
@@ -52,13 +52,13 @@ export class ModalDialog extends LitElement {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 1rem 1.5rem;
+        padding: var(--spacing-md) var(--spacing-lg);
         border-bottom: 0.0625rem solid var(--border-color);
       }
 
       .modal-title {
         margin: 0;
-        font-size: 1.25rem;
+        font-size: var(--font-lg);
         font-weight: 600;
         color: var(--text-color);
       }
@@ -66,7 +66,7 @@ export class ModalDialog extends LitElement {
       .close-button {
         background: none;
         border: none;
-        font-size: 1.5rem;
+        font-size: var(--font-xl);
         cursor: pointer;
         padding: 0;
         color: var(--text-color-light);
@@ -78,7 +78,7 @@ export class ModalDialog extends LitElement {
       }
 
       .modal-body {
-        padding: 1.5rem;
+        padding: var(--spacing-lg);
       }
 
       @media (max-width: 768px) {
@@ -87,11 +87,11 @@ export class ModalDialog extends LitElement {
         }
 
         .modal-header {
-          padding: 0.75rem 1rem;
+          padding: var(--spacing-sm) var(--spacing-md);
         }
 
         .modal-body {
-          padding: 1rem;
+          padding: var(--spacing-md);
         }
       }
     `;

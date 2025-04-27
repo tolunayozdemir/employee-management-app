@@ -29,24 +29,24 @@ export class FormInput extends LitElement {
   static get styles() {
     return css`
       .form-group {
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--spacing-lg);
       }
 
       label {
         display: block;
         font-weight: 500;
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--spacing-sm);
         color: var(--text-color-light);
-        font-size: 0.9rem;
+        font-size: var(--font-sm);
       }
 
       input {
         box-sizing: border-box;
         width: 100%;
-        padding: 0.75rem 1rem;
+        padding: var(--spacing-sm) var(--spacing-md);
         border: 0.0625rem solid var(--border-color);
         border-radius: var(--radius-md);
-        font-size: 1rem;
+        font-size: var(--font-base);
         box-shadow: var(--box-shadow);
         outline: none;
         transition: border-color var(--transition-default);
@@ -59,8 +59,8 @@ export class FormInput extends LitElement {
 
       .error {
         color: var(--error-color);
-        font-size: 0.9rem;
-        margin-top: 5px;
+        font-size: var(--font-sm);
+        margin-top: var(--spacing-xs);
       }
     `;
   }

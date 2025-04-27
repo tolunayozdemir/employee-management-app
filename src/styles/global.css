@@ -14,7 +14,41 @@
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --transition-default: 0.15s ease-in-out;
+  
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  
+  --font-xs: 0.75rem;
+  --font-sm: 0.875rem;
+  --font-base: 1rem;
+  --font-md: 1.125rem;
+  --font-lg: 1.25rem;
+  --font-xl: 1.5rem;
+  --font-2xl: 2rem;
+  
   font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 1.25rem;
+    --spacing-xl: 1.5rem;
+    --spacing-2xl: 2rem;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.25rem;
+    --spacing-2xl: 1.5rem;
+    font-size: 14px;
+  }
 }
 
 body,
@@ -27,5 +61,17 @@ html {
 }
 
 main {
-  padding: 1rem 3rem;
+  padding: var(--spacing-md) var(--spacing-2xl);
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: var(--spacing-md) var(--spacing-xl);
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: var(--spacing-md) var(--spacing-md);
+  }
 }

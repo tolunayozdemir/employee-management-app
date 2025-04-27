@@ -16,26 +16,29 @@ export class EmployeePage extends LitElement {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: var(--spacing-md);
       }
+      
       h1 {
         color: var(--primary-color);
-        font-size: 1.5rem;
+        font-size: var(--font-xl);
         font-weight: 500;
+        margin: 0;
       }
 
       .view-toggle {
         display: flex;
-        gap: 0.625rem;
-        margin-bottom: 0.9375rem;
+        gap: var(--spacing-sm);
       }
 
       .view-btn {
         background-color: var(--bg-light);
         border: 0.0625rem solid var(--border-color);
-        padding: 0.375rem 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
         border-radius: var(--radius-sm);
         cursor: pointer;
         transition: background-color var(--transition-default);
+        font-size: var(--font-sm);
       }
 
       .view-btn.active {
@@ -45,8 +48,20 @@ export class EmployeePage extends LitElement {
       }
 
       .search-section {
-        margin: 1rem 0;
+        margin-bottom: var(--spacing-md);
         width: 100%;
+      }
+      
+      @media (max-width: 768px) {
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: var(--spacing-sm);
+        }
+        
+        h1 {
+          margin-bottom: var(--spacing-xs);
+        }
       }
     `;
   }

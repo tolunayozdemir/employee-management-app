@@ -20,15 +20,15 @@ export class PaginationComponent extends LitElement {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 1rem;
-        gap: 0.5rem;
+        margin-top: var(--spacing-md);
+        gap: var(--spacing-sm);
       }
 
       .pagination button {
         background: none;
         border-radius: 50%;
-        width: 2rem;
-        height: 2rem;
+        width: var(--spacing-xl);
+        height: var(--spacing-xl);
         cursor: pointer;
         border: none;
         display: flex;
@@ -47,7 +47,7 @@ export class PaginationComponent extends LitElement {
       }
 
       .pagination .page-info {
-        margin: 0 0.5rem;
+        margin: 0 var(--spacing-sm);
       }
     `;
   }

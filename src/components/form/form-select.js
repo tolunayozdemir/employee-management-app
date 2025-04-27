@@ -30,15 +30,15 @@ export class FormSelect extends LitElement {
   static get styles() {
     return css`
       .form-group {
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--spacing-lg);
       }
 
       label {
         display: block;
         font-weight: 500;
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--spacing-sm);
         color: var(--text-color-light);
-        font-size: 0.9rem;
+        font-size: var(--font-sm);
       }
 
       .select-wrapper {
@@ -49,21 +49,20 @@ export class FormSelect extends LitElement {
       select {
         box-sizing: border-box;
         width: 100%;
-        padding: 0.75rem 1rem;
+        padding: var(--spacing-sm) var(--spacing-md);
         border: 0.0625rem solid var(--border-color);
         border-radius: var(--radius-md);
-        font-size: 1rem;
+        font-size: var(--font-base);
         box-shadow: var(--box-shadow);
         outline: none;
         transition: border-color var(--transition-default);
         background-color: white;
-        appearance: none; /* Hide default arrow in modern browsers */
-        -webkit-appearance: none; /* Safari */
-        -moz-appearance: none; /* Firefox */
-        padding-right: 2.5rem; /* Make room for custom chevron */
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding-right: var(--spacing-2xl);
       }
 
-      /* Hide default dropdown arrow in IE10+ */
       select::-ms-expand {
         display: none;
       }
@@ -72,13 +71,13 @@ export class FormSelect extends LitElement {
         content: '';
         position: absolute;
         top: 50%;
-        right: 1rem;
+        right: var(--spacing-md);
         transform: translateY(-50%) rotate(45deg);
-        width: 0.5rem;
-        height: 0.5rem;
+        width: var(--spacing-xs);
+        height: var(--spacing-xs);
         border-right: 0.125rem solid var(--text-color-light);
         border-bottom: 0.125rem solid var(--text-color-light);
-        pointer-events: none; /* Ensure clicks pass through to the select */
+        pointer-events: none;
         transition: transform 0.2s ease;
       }
 
@@ -93,8 +92,8 @@ export class FormSelect extends LitElement {
 
       .error {
         color: var(--error-color);
-        font-size: 0.9rem;
-        margin-top: 5px;
+        font-size: var(--font-sm);
+        margin-top: var(--spacing-xs);
       }
     `;
   }

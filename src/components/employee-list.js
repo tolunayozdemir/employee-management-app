@@ -9,16 +9,17 @@ export class EmployeeListView extends LitElement {
       .list-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: var(--spacing-md);
       }
 
       .employee-card {
         display: flex;
         flex-direction: column;
-        padding: 1.5rem;
-        border-radius: 0.5rem;
+        flex: 1;
+        padding: var(--spacing-lg);
+        border-radius: var(--radius-md);
         background-color: var(--white);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--box-shadow);
         width: 15rem;
       }
 
@@ -26,11 +27,11 @@ export class EmployeeListView extends LitElement {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 0.5rem;
+        margin-bottom: var(--spacing-sm);
       }
 
       .employee-name {
-        font-size: 1.25rem;
+        font-size: var(--font-lg);
         font-weight: 600;
         color: var(--primary-color);
         margin: 0;
@@ -38,16 +39,16 @@ export class EmployeeListView extends LitElement {
 
       .employee-actions {
         display: flex;
-        gap: 0.5rem;
+        gap: var(--spacing-sm);
       }
 
       .action-btn {
         background: none;
         border: none;
         cursor: pointer;
-        font-size: 1.25rem;
-        padding: 0.25rem;
-        border-radius: 0.25rem;
+        font-size: var(--font-lg);
+        padding: var(--spacing-xs);
+        border-radius: var(--radius-sm);
       }
 
       .action-btn:hover {
@@ -57,8 +58,8 @@ export class EmployeeListView extends LitElement {
       .employee-details {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
-        gap: 1rem;
-        margin-top: 0.5rem;
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-sm);
       }
 
       .detail-item {
@@ -67,13 +68,13 @@ export class EmployeeListView extends LitElement {
       }
 
       .detail-label {
-        font-size: 0.875rem;
+        font-size: var(--font-sm);
         color: var(--text-color-light);
-        margin-bottom: 0.25rem;
+        margin-bottom: var(--spacing-xs);
       }
 
       .detail-value {
-        font-size: 1rem;
+        font-size: var(--font-base);
         color: var(--text-color);
       }
     `;

@@ -42,15 +42,17 @@ export class NavigationContainer extends LitElement {
     return css`
       nav {
         background-color: var(--white);
-        padding: 1rem;
+        padding: var(--spacing-md);
         box-shadow: var(--box-shadow);
         border-radius: var(--radius-sm);
         display: flex;
         justify-content: space-between;
+        align-items: center;
       }
 
       h1 {
-        font-size: 1rem;
+        font-size: var(--font-lg);
+        margin: 0;
       }
 
       .logo {
@@ -62,7 +64,7 @@ export class NavigationContainer extends LitElement {
         list-style: none;
         padding: 0;
         margin: 0;
-        gap: 1.5rem;
+        gap: var(--spacing-lg);
       }
 
       li {
@@ -74,7 +76,7 @@ export class NavigationContainer extends LitElement {
         text-decoration: none;
         font-weight: 500;
         transition: color var(--transition-default);
-        padding: 0.5rem 0;
+        padding: var(--spacing-xs);
         position: relative;
       }
 
@@ -105,7 +107,17 @@ export class NavigationContainer extends LitElement {
       .nav-links {
         display: flex;
         align-items: center;
-        gap: 1.5rem;
+        gap: var(--spacing-md);
+      }
+
+      @media (max-width: 480px) {
+        ul {
+          gap: var(--spacing-md);
+        }
+
+        .nav-links {
+          gap: var(--spacing-sm);
+        }
       }
     `;
   }

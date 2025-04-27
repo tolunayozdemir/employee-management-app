@@ -6,7 +6,6 @@ export class SearchBar extends LitElement {
   static get styles() {
     return css`
       .search-container {
-        margin-bottom: 1.5rem;
         width: 100%;
       }
     `;
