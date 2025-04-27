@@ -31,7 +31,7 @@ export const tr = {
   'form.dateOfEmployment': 'İşe Başlama Tarihi',
   'form.dateOfBirth': 'Doğum Tarihi',
   'form.phone': 'Telefon Numarası',
-  'form.phoneFormat': '+90XXXXXXXXXX',
+  'form.phoneFormat': '05XXXXXXXXX',
   'form.email': 'E-posta Adresi',
   'form.emailFormat': 'ornek@sirket.com',
   'form.department': 'Departman',
@@ -50,7 +50,7 @@ export const tr = {
   'error.tooOld': 'Lütfen geçerli bir doğum tarihi girin',
   'error.required.phone': 'Telefon numarası zorunludur',
   'error.invalid.phone':
-    'Lütfen geçerli bir telefon numarası girin (10-15 rakam)',
+    'Lütfen geçerli bir telefon numarası girin (05XXXXXXXXX)',
   'error.required.email': 'E-posta adresi zorunludur',
   'error.invalid.email': 'Lütfen geçerli bir e-posta adresi girin',
   'error.duplicate.email': 'Bu e-posta adresi zaten kayıtlı',

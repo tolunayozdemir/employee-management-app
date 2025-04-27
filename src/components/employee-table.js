@@ -2,6 +2,7 @@ import {html, LitElement, css} from 'lit';
 import './pagination-component.js';
 import './employee-table-not-found.js';
 import {I18n} from '../i18n/index.js';
+import {formatPhoneNumber, formatDate} from '../utils/formatters.js';
 
 const ITEMS_PER_PAGE = 10;
 
@@ -48,6 +49,10 @@ export class EmployeeList extends LitElement {
         text-align: right;
       }
 
+      .name-cell {
+        font-weight: bold;
+      }
+
       .action-btn {
         background: none;
         border: none;
@@ -71,11 +76,12 @@ export class EmployeeList extends LitElement {
         table {
           font-size: 0.9rem;
         }
-        
-        td, th {
+
+        td,
+        th {
           padding: 1rem 0.5rem;
         }
-        
+
         .action-btn {
           font-size: 1.1rem;
         }
@@ -85,16 +91,17 @@ export class EmployeeList extends LitElement {
         table {
           font-size: 0.85rem;
         }
-        
-        td, th {
+
+        td,
+        th {
           padding: 0.75rem 0.35rem;
         }
-        
+
         .action-btn {
           font-size: 1rem;
           padding: 0.15rem;
         }
-        
+
         .pagination-wrapper {
           overflow-x: auto;
           font-size: 0.85rem;
@@ -157,11 +164,11 @@ export class EmployeeList extends LitElement {
         <td class="checkbox-cell">
           <input type="checkbox" .value=${employee.id} />
         </td>
-        <td>${employee.firstName}</td>
-        <td>${employee.lastName}</td>
-        <td>${employee.dateOfEmployment}</td>
-        <td>${employee.dateOfBirth}</td>
-        <td>${employee.phone}</td>
+        <td class="name-cell">${employee.firstName}</td>
+        <td class="name-cell">${employee.lastName}</td>
+        <td>${formatDate(employee.dateOfEmployment)}</td>
+        <td>${formatDate(employee.dateOfBirth)}</td>
+        <td>${formatPhoneNumber(employee.phone)}</td>
         <td>${employee.email}</td>
         <td>${employee.department}</td>
         <td>${employee.position}</td>
