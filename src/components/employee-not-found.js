@@ -2,7 +2,7 @@ import {html, LitElement, css} from 'lit';
 import {Router} from '@vaadin/router';
 import {I18n} from '../i18n/index.js';
 
-export class EmployeeTableNotFound extends LitElement {
+export class EmployeeNotFound extends LitElement {
   static get styles() {
     return css`
       .not-found-container {
@@ -72,4 +72,4 @@ export class EmployeeTableNotFound extends LitElement {
   }
 }
 
-customElements.define('employee-table-not-found', EmployeeTableNotFound);
+customElements.define('employee-not-found', EmployeeNotFound);

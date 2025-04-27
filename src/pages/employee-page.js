@@ -1,6 +1,6 @@
 import {LitElement, html, css} from 'lit';
 import '../components/employee-table.js';
-import '../components/employee-list.js';
+import '../components/employee-list/employee-list.js';
 import '../components/form/employee-form.js';
 import '../components/search-bar/index.js';
 import '../components/dialog/modal-dialog.js';
@@ -18,7 +18,7 @@ export class EmployeePage extends LitElement {
         align-items: center;
         margin-bottom: var(--spacing-md);
       }
-      
+
       h1 {
         color: var(--primary-color);
         font-size: var(--font-xl);
@@ -51,14 +51,14 @@ export class EmployeePage extends LitElement {
         margin-bottom: var(--spacing-md);
         width: 100%;
       }
-      
+
       @media (max-width: 768px) {
         .header {
           flex-direction: column;
           align-items: flex-start;
           gap: var(--spacing-sm);
         }
-        
+
         h1 {
           margin-bottom: var(--spacing-xs);
         }
@@ -173,7 +173,7 @@ export class EmployeePage extends LitElement {
   }
 
   _handleFormSubmit(e) {
-    console.log(e)
+    console.log(e);
     const _employeeToUpdate = e.detail.formData;
 
     this._confirmMessage = I18n.t('confirm.update', {
@@ -195,6 +195,10 @@ export class EmployeePage extends LitElement {
   }
 
   _renderCurrentView() {
+    if (!this._filteredEmployees || this._filteredEmployees.length === 0) {
+      return html` <employee-not-found></employee-not-found> `;
+    }
+
     if (this._viewMode === 'table') {
       return html`
         <employee-table
