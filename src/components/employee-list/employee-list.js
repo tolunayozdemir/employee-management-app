@@ -163,7 +163,9 @@ export class EmployeeListView extends LitElement {
           </div>
           <div class="detail-item">
             <span class="detail-label">${I18n.t('card.employmentDate')}</span>
-            <span class="detail-value">${formatDate(employee.dateOfEmployment)}</span>
+            <span class="detail-value"
+              >${formatDate(employee.dateOfEmployment)}</span
+            >
           </div>
           <div class="detail-item">
             <span class="detail-label">${I18n.t('card.email')}</span>
@@ -171,7 +173,9 @@ export class EmployeeListView extends LitElement {
           </div>
           <div class="detail-item">
             <span class="detail-label">${I18n.t('card.phone')}</span>
-            <span class="detail-value">${formatPhoneNumber(employee.phone)}</span>
+            <span class="detail-value"
+              >${formatPhoneNumber(employee.phone)}</span
+            >
           </div>
         </div>
       </div>

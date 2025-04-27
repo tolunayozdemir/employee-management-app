@@ -1,9 +1,13 @@
-import { expect } from '@open-wc/testing';
-import { 
-  DELETE_EMPLOYEE, deleteEmployee,
-  ADD_EMPLOYEE, addEmployee,
-  UPDATE_EMPLOYEE, updateEmployee,
-  SET_LANGUAGE, setLanguage
+import {expect} from '@open-wc/testing';
+import {
+  DELETE_EMPLOYEE,
+  deleteEmployee,
+  ADD_EMPLOYEE,
+  addEmployee,
+  UPDATE_EMPLOYEE,
+  updateEmployee,
+  SET_LANGUAGE,
+  setLanguage,
 } from './actions.js';
 
 suite('Action Creators', () => {
@@ -12,7 +16,7 @@ suite('Action Creators', () => {
       const employeeId = 123;
       const expectedAction = {
         type: DELETE_EMPLOYEE,
-        payload: { id: employeeId }
+        payload: {id: employeeId},
       };
       expect(deleteEmployee(employeeId)).to.deep.equal(expectedAction);
     });
@@ -23,11 +27,11 @@ suite('Action Creators', () => {
       const employee = {
         firstName: 'John',
         lastName: 'Doe',
-        position: 'Developer'
+        position: 'Developer',
       };
       const expectedAction = {
         type: ADD_EMPLOYEE,
-        payload: employee
+        payload: employee,
       };
       expect(addEmployee(employee)).to.deep.equal(expectedAction);
     });
@@ -39,11 +43,11 @@ suite('Action Creators', () => {
         id: 123,
         firstName: 'John',
         lastName: 'Doe',
-        position: 'Senior Developer'
+        position: 'Senior Developer',
       };
       const expectedAction = {
         type: UPDATE_EMPLOYEE,
-        payload: employee
+        payload: employee,
       };
       expect(updateEmployee(employee)).to.deep.equal(expectedAction);
     });
@@ -54,7 +58,7 @@ suite('Action Creators', () => {
       const language = 'tr';
       const expectedAction = {
         type: SET_LANGUAGE,
-        payload: language
+        payload: language,
       };
       expect(setLanguage(language)).to.deep.equal(expectedAction);
     });

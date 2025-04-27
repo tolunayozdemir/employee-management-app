@@ -175,7 +175,6 @@ export class EmployeePage extends LitElement {
   }
 
   _handleFormSubmit(e) {
-    console.log(e);
     const _employeeToUpdate = e.detail.formData;
 
     this._confirmMessage = I18n.t('confirm.update', {

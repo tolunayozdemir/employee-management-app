@@ -1,10 +1,10 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import {html, fixture, expect} from '@open-wc/testing';
 import '../form/form-input.js';
 
 suite('FormInput', () => {
   test('default initialization', async () => {
     const el = await fixture(html`<form-input></form-input>`);
-    
+
     expect(el.label).to.equal('');
     expect(el.name).to.equal('');
     expect(el.type).to.equal('text');
@@ -28,10 +28,12 @@ suite('FormInput', () => {
         ?required=${true}
       ></form-input>
     `);
-    
+
     const input = el.shadowRoot.querySelector('input');
-    
-    expect(el.shadowRoot.querySelector('label').textContent).to.equal('Test Label');
+
+    expect(el.shadowRoot.querySelector('label').textContent).to.equal(
+      'Test Label'
+    );
     expect(input.id).to.equal('test-input');
     expect(input.name).to.equal('test-input');
     expect(input.type).to.equal('email');
@@ -50,7 +52,7 @@ suite('FormInput', () => {
         error="This field is required"
       ></form-input>
     `);
-    
+
     const errorDiv = el.shadowRoot.querySelector('.error');
     expect(errorDiv).to.exist;
     expect(errorDiv.textContent).to.equal('This field is required');
@@ -59,22 +61,22 @@ suite('FormInput', () => {
   test('input event', async () => {
     const el = await fixture(html`<form-input name="test-input"></form-input>`);
     const input = el.shadowRoot.querySelector('input');
-    
+
     let eventFired = false;
     let eventDetail = null;
-    
+
     el.addEventListener('input-change', (e) => {
       eventFired = true;
       eventDetail = e.detail;
     });
-    
+
     input.value = 'new value';
     input.dispatchEvent(new Event('input'));
-    
+
     expect(eventFired).to.be.true;
     expect(eventDetail).to.deep.equal({
       name: 'test-input',
-      value: 'new value'
+      value: 'new value',
     });
     expect(el.value).to.equal('new value');
   });
@@ -82,18 +84,15 @@ suite('FormInput', () => {
   test('disabled state', async () => {
     const el = await fixture(html`<form-input ?disabled=${true}></form-input>`);
     const input = el.shadowRoot.querySelector('input');
-    
+
     expect(input.hasAttribute('disabled')).to.be.true;
   });
 
   test('a11y', async () => {
     const el = await fixture(html`
-      <form-input
-        label="Accessible Input"
-        name="accessible-input"
-      ></form-input>
+      <form-input label="Accessible Input" name="accessible-input"></form-input>
     `);
-    
+
     await expect(el).to.be.accessible();
   });
 });

@@ -66,7 +66,9 @@ export class EmployeeNotFound extends LitElement {
         <div class="icon">👥</div>
         <h3>${I18n.t('empty.title')}</h3>
         <p>${I18n.t('empty.message')}</p>
-        <button @click=${this._handleAddEmployeeClick}>${I18n.t('button.add')}</button>
+        <button @click=${this._handleAddEmployeeClick}>
+          ${I18n.t('button.add')}
+        </button>
       </div>
     `;
   }

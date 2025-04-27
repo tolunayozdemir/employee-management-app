@@ -79,7 +79,7 @@ suite('EmployeePage', () => {
     const h1 = header.querySelector('h1');
     const viewToggle = header.querySelector('.view-toggle');
     const viewButtons = viewToggle.querySelectorAll('.view-btn');
-    
+
     expect(h1).to.exist;
     expect(h1.textContent).to.equal('page.employeeList');
     expect(viewButtons.length).to.equal(2);
@@ -97,13 +97,13 @@ suite('EmployeePage', () => {
     expect(searchBar.placeholder).to.equal('search.placeholder');
     expect(searchBar.debounceTime).to.equal(300);
   });
-  
+
   test('renders employee table in default view', async () => {
     const el = await fixture(html`<employee-page></employee-page>`);
 
     const employeeTable = el.shadowRoot.querySelector('employee-table');
     const employeeList = el.shadowRoot.querySelector('employee-list');
-    
+
     expect(employeeTable).to.exist;
     expect(employeeList).to.be.null;
     expect(employeeTable.employees.length).to.equal(2);
@@ -114,26 +114,26 @@ suite('EmployeePage', () => {
 
     const viewButtons = el.shadowRoot.querySelectorAll('.view-btn');
     const listViewButton = viewButtons[1];
-    
+
     listViewButton.click();
     await el.updateComplete;
-    
+
     expect(el._viewMode).to.equal('list');
     let employeeTable = el.shadowRoot.querySelector('employee-table');
     let employeeList = el.shadowRoot.querySelector('employee-list');
-    
+
     expect(employeeTable).to.be.null;
     expect(employeeList).to.exist;
     expect(employeeList.employees.length).to.equal(2);
-    
+
     const tableViewButton = viewButtons[0];
     tableViewButton.click();
     await el.updateComplete;
-    
+
     expect(el._viewMode).to.equal('table');
     employeeTable = el.shadowRoot.querySelector('employee-table');
     employeeList = el.shadowRoot.querySelector('employee-list');
-    
+
     expect(employeeTable).to.exist;
     expect(employeeList).to.be.null;
   });
@@ -142,39 +142,39 @@ suite('EmployeePage', () => {
     const el = await fixture(html`<employee-page></employee-page>`);
 
     const searchBar = el.shadowRoot.querySelector('search-bar');
-    
+
     searchBar.dispatchEvent(
       new CustomEvent('search-change', {
-        detail: { value: 'john' }
+        detail: {value: 'john'},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._searchTerm).to.equal('john');
     expect(el._filteredEmployees.length).to.equal(1);
     expect(el._filteredEmployees[0].firstName).to.equal('John');
-    
+
     searchBar.dispatchEvent(
       new CustomEvent('search-change', {
-        detail: { value: 'tech' }
+        detail: {value: 'tech'},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._searchTerm).to.equal('tech');
     expect(el._filteredEmployees.length).to.equal(1);
     expect(el._filteredEmployees[0].department).to.equal('Tech');
-    
+
     searchBar.dispatchEvent(
       new CustomEvent('search-change', {
-        detail: { value: '' }
+        detail: {value: ''},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._searchTerm).to.equal('');
     expect(el._filteredEmployees.length).to.equal(2);
   });
@@ -183,15 +183,15 @@ suite('EmployeePage', () => {
     const el = await fixture(html`<employee-page></employee-page>`);
 
     const searchBar = el.shadowRoot.querySelector('search-bar');
-    
+
     searchBar.dispatchEvent(
       new CustomEvent('search-change', {
-        detail: { value: 'nonexistent' }
+        detail: {value: 'nonexistent'},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._filteredEmployees.length).to.equal(0);
     const notFound = el.shadowRoot.querySelector('employee-not-found');
     expect(notFound).to.exist;
@@ -205,24 +205,24 @@ suite('EmployeePage', () => {
       id: 1,
       firstName: 'John',
       lastName: 'Doe',
-      email: 'john.doe@example.com'
+      email: 'john.doe@example.com',
     };
-    
+
     employeeTable.dispatchEvent(
       new CustomEvent('employee-edit', {
-        detail: employee
+        detail: employee,
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._isEmployeeModalOpen).to.be.true;
     expect(el._employeeToEdit).to.deep.equal(employee);
-    
+
     const modal = el.shadowRoot.querySelector('modal-dialog');
     expect(modal).to.exist;
     expect(modal.isOpen).to.be.true;
-    
+
     const form = modal.querySelector('employee-form');
     expect(form).to.exist;
     expect(form.type).to.equal('edit');
@@ -233,12 +233,12 @@ suite('EmployeePage', () => {
     const el = await fixture(html`<employee-page></employee-page>`);
 
     el._isEmployeeModalOpen = true;
-    el._employeeToEdit = { id: 1, firstName: 'John', lastName: 'Doe' };
+    el._employeeToEdit = {id: 1, firstName: 'John', lastName: 'Doe'};
     await el.updateComplete;
-    
+
     const modal = el.shadowRoot.querySelector('modal-dialog');
     modal.dispatchEvent(new CustomEvent('modal-closed'));
-    
+
     expect(el._isEmployeeModalOpen).to.be.false;
   });
 
@@ -251,18 +251,20 @@ suite('EmployeePage', () => {
       firstName: 'John',
       lastName: 'Doe',
     };
-    
+
     employeeTable.dispatchEvent(
       new CustomEvent('employee-delete', {
-        detail: { row: employee }
+        detail: {row: employee},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._isConfirmModalOpen).to.be.true;
-    expect(el._confirmMessage).to.equal('confirm.delete{"firstName":"John","lastName":"Doe"}');
-    
+    expect(el._confirmMessage).to.equal(
+      'confirm.delete{"firstName":"John","lastName":"Doe"}'
+    );
+
     const confirmDialog = el.shadowRoot.querySelector('confirmation-dialog');
     expect(confirmDialog).to.exist;
     expect(confirmDialog.isOpen).to.be.true;
@@ -278,17 +280,17 @@ suite('EmployeePage', () => {
       firstName: 'John',
       lastName: 'Doe',
     };
-    
+
     employeeTable.dispatchEvent(
       new CustomEvent('employee-delete', {
-        detail: { row: employee }
+        detail: {row: employee},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._isConfirmModalOpen).to.be.true;
-    
+
     el._onConfirm();
     expect(dispatchedActions.length).to.equal(1);
     expect(dispatchedActions[0]).to.deep.equal(deleteEmployee(1));
@@ -304,17 +306,17 @@ suite('EmployeePage', () => {
       firstName: 'John',
       lastName: 'Doe',
     };
-    
+
     employeeTable.dispatchEvent(
       new CustomEvent('employee-delete', {
-        detail: { row: employee }
+        detail: {row: employee},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._isConfirmModalOpen).to.be.true;
-    
+
     el._onCancel();
     expect(dispatchedActions.length).to.equal(0);
     expect(el._isConfirmModalOpen).to.be.false;
@@ -324,54 +326,56 @@ suite('EmployeePage', () => {
     const el = await fixture(html`<employee-page></employee-page>`);
 
     el._isEmployeeModalOpen = true;
-    el._employeeToEdit = { id: 1, firstName: 'John', lastName: 'Doe' };
+    el._employeeToEdit = {id: 1, firstName: 'John', lastName: 'Doe'};
     await el.updateComplete;
-    
+
     const form = el.shadowRoot.querySelector('employee-form');
-    const updatedEmployee = { 
-      id: 1, 
-      firstName: 'John', 
+    const updatedEmployee = {
+      id: 1,
+      firstName: 'John',
       lastName: 'Doe',
-      position: 'Senior Developer' 
+      position: 'Senior Developer',
     };
-    
+
     form.dispatchEvent(
       new CustomEvent('submit-form', {
-        detail: { formData: updatedEmployee }
+        detail: {formData: updatedEmployee},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     expect(el._isConfirmModalOpen).to.be.true;
-    expect(el._confirmMessage).to.equal('confirm.update{"firstName":"John","lastName":"Doe"}');
+    expect(el._confirmMessage).to.equal(
+      'confirm.update{"firstName":"John","lastName":"Doe"}'
+    );
   });
 
   test('dispatches updateEmployee action when update is confirmed', async () => {
     const el = await fixture(html`<employee-page></employee-page>`);
 
     el._isEmployeeModalOpen = true;
-    el._employeeToEdit = { id: 1, firstName: 'John', lastName: 'Doe' };
+    el._employeeToEdit = {id: 1, firstName: 'John', lastName: 'Doe'};
     await el.updateComplete;
-    
+
     const form = el.shadowRoot.querySelector('employee-form');
-    const updatedEmployee = { 
-      id: 1, 
-      firstName: 'John', 
+    const updatedEmployee = {
+      id: 1,
+      firstName: 'John',
       lastName: 'Doe',
-      position: 'Senior Developer' 
+      position: 'Senior Developer',
     };
-    
+
     form.dispatchEvent(
       new CustomEvent('submit-form', {
-        detail: { formData: updatedEmployee }
+        detail: {formData: updatedEmployee},
       })
     );
-    
+
     await el.updateComplete;
-    
+
     el._onConfirm();
-    
+
     expect(dispatchedActions.length).to.equal(1);
     expect(dispatchedActions[0]).to.deep.equal(updateEmployee(updatedEmployee));
     expect(el._isEmployeeModalOpen).to.be.false;
@@ -380,19 +384,19 @@ suite('EmployeePage', () => {
 
   test('handles store subscription in lifecycle methods', async () => {
     const el = await fixture(html`<employee-page></employee-page>`);
-    
+
     expect(el._employees.length).to.equal(2);
-    
+
     const originalUnsubscribe = el._unsubscribe;
     let unsubscribeCalled = false;
-    
+
     el._unsubscribe = () => {
       unsubscribeCalled = true;
       originalUnsubscribe.call(el);
     };
-    
+
     el.disconnectedCallback();
-    
+
     expect(unsubscribeCalled).to.be.true;
   });
 

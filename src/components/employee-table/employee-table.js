@@ -176,11 +176,11 @@ export class EmployeeList extends LitElement {
           <label class="sr-only" for="employee-${employee.id}">
             Select ${employee.firstName} ${employee.lastName}
           </label>
-          <input 
-            type="checkbox" 
-            id="employee-${employee.id}" 
+          <input
+            type="checkbox"
+            id="employee-${employee.id}"
             name="employee-${employee.id}"
-            .value=${employee.id} 
+            .value=${employee.id}
             aria-label="Select ${employee.firstName} ${employee.lastName}"
           />
         </td>
@@ -219,12 +219,14 @@ export class EmployeeList extends LitElement {
           <thead>
             <tr>
               <th class="checkbox-cell">
-                <span id="select-all-label" class="sr-only">${I18n.t('table.selectAll')}</span>
-                <input 
-                  type="checkbox" 
+                <span id="select-all-label" class="sr-only"
+                  >${I18n.t('table.selectAll')}</span
+                >
+                <input
+                  type="checkbox"
                   id="select-all"
                   name="select-all"
-                  @change=${this._handleSelectAll} 
+                  @change=${this._handleSelectAll}
                   aria-labelledby="select-all-label"
                 />
               </th>

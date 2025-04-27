@@ -68,8 +68,7 @@ export const tr = {
   'button.proceed': 'Devam Et',
 
   // Confirmations
-  'confirm.add':
-    '{{firstName}} {{lastName}} isimli çalışan kaydı eklenecek.',
+  'confirm.add': '{{firstName}} {{lastName}} isimli çalışan kaydı eklenecek.',
   'confirm.update':
     '{{firstName}} {{lastName}} isimli çalışan kaydı güncellenecek.',
   'confirm.delete':

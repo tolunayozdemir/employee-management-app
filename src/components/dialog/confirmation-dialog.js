@@ -97,13 +97,15 @@ export class ConfirmationDialog extends LitElement {
 
   render() {
     if (!this.isOpen) return html``;
-    
+
     return html`
       <div class="overlay">
         <div class="dialog">
           <div class="dialog-header">
             <h3 class="dialog-title">${I18n.t('confirm.title')}</h3>
-            <button class="close-button" @click=${this._onCancel}>&times;</button>
+            <button class="close-button" @click=${this._onCancel}>
+              &times;
+            </button>
           </div>
           <div class="dialog-content">
             <p>${this.message}</p>

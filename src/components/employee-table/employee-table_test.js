@@ -26,15 +26,21 @@ suite('EmployeeTable', () => {
 
     expect(el._getTotalPages()).to.equal(0);
 
-    el.employees = Array(10).fill().map((_, i) => ({id: i}));
+    el.employees = Array(10)
+      .fill()
+      .map((_, i) => ({id: i}));
     await el.updateComplete;
     expect(el._getTotalPages()).to.equal(1);
 
-    el.employees = Array(11).fill().map((_, i) => ({id: i}));
+    el.employees = Array(11)
+      .fill()
+      .map((_, i) => ({id: i}));
     await el.updateComplete;
     expect(el._getTotalPages()).to.equal(2);
 
-    el.employees = Array(20).fill().map((_, i) => ({id: i}));
+    el.employees = Array(20)
+      .fill()
+      .map((_, i) => ({id: i}));
     await el.updateComplete;
     expect(el._getTotalPages()).to.equal(2);
   });
@@ -42,11 +48,13 @@ suite('EmployeeTable', () => {
   test('gets displayed employees correctly based on pagination', async () => {
     const el = await fixture(html`<employee-table></employee-table>`);
 
-    el.employees = Array(25).fill().map((_, i) => ({
-      id: i,
-      firstName: `First${i}`,
-      lastName: `Last${i}`,
-    }));
+    el.employees = Array(25)
+      .fill()
+      .map((_, i) => ({
+        id: i,
+        firstName: `First${i}`,
+        lastName: `Last${i}`,
+      }));
 
     el.currentPage = 0;
     await el.updateComplete;
@@ -73,7 +81,7 @@ suite('EmployeeTable', () => {
 
     const headers = el.shadowRoot.querySelectorAll('th');
     expect(headers.length).to.equal(10);
-    
+
     expect(headers[1].textContent).to.equal('table.firstName');
     expect(headers[2].textContent).to.equal('table.lastName');
     expect(headers[3].textContent).to.equal('table.dateOfEmployment');
@@ -109,7 +117,7 @@ suite('EmployeeTable', () => {
 
     const cells = rows[0].querySelectorAll('td');
     expect(cells.length).to.equal(10);
-    
+
     expect(cells[1].textContent).to.equal('John');
     expect(cells[2].textContent).to.equal('Doe');
     expect(cells[7].textContent).to.equal('Tech');
@@ -166,11 +174,15 @@ suite('EmployeeTable', () => {
   test('handles page change event from pagination component', async () => {
     const el = await fixture(html`<employee-table></employee-table>`);
 
-    el.employees = Array(15).fill().map((_, i) => ({id: i}));
+    el.employees = Array(15)
+      .fill()
+      .map((_, i) => ({id: i}));
     await el.updateComplete;
 
-    const paginationComponent = el.shadowRoot.querySelector('pagination-component');
-    
+    const paginationComponent = el.shadowRoot.querySelector(
+      'pagination-component'
+    );
+
     paginationComponent.dispatchEvent(
       new CustomEvent('page-changed', {
         detail: {page: 1},
@@ -183,7 +195,9 @@ suite('EmployeeTable', () => {
   test('correctly passes properties to pagination component', async () => {
     const el = await fixture(html`<employee-table></employee-table>`);
 
-    el.employees = Array(15).fill().map((_, i) => ({id: i}));
+    el.employees = Array(15)
+      .fill()
+      .map((_, i) => ({id: i}));
     el.currentPage = 1;
     await el.updateComplete;
 
@@ -217,7 +231,7 @@ suite('EmployeeTable', () => {
 
     const checkboxCell = el.shadowRoot.querySelector('td.checkbox-cell');
     expect(checkboxCell).to.exist;
-    
+
     const checkbox = checkboxCell.querySelector('input[type="checkbox"]');
     expect(checkbox).to.exist;
     expect(checkbox.value).to.equal('1');

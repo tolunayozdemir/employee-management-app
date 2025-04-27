@@ -338,10 +338,10 @@ suite('EmployeeForm', () => {
     const birthDate = new Date(today);
     birthDate.setFullYear(today.getFullYear() - 18);
     birthDate.setDate(birthDate.getDate() + 2);
-    
+
     const birthDateStr = birthDate.toISOString().split('T')[0];
     const result = el._getDateOfBirthErrorMessage(birthDateStr);
-    
+
     expect(result).to.equal('error.tooYoung');
   });
 

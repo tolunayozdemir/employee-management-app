@@ -1,10 +1,12 @@
-import { html, fixture, expect } from '@open-wc/testing';
+import {html, fixture, expect} from '@open-wc/testing';
 import './pagination-component.js';
 
 suite('PaginationComponent', () => {
   test('default initialization', async () => {
-    const el = await fixture(html`<pagination-component></pagination-component>`);
-    
+    const el = await fixture(
+      html`<pagination-component></pagination-component>`
+    );
+
     expect(el.currentPage).to.equal(0);
     expect(el.totalPages).to.equal(0);
     expect(el.render()).to.equal('');
@@ -17,10 +19,10 @@ suite('PaginationComponent', () => {
         .totalPages=${5}
       ></pagination-component>
     `);
-    
+
     const pagination = el.shadowRoot.querySelector('.pagination');
     expect(pagination).to.exist;
-    
+
     const buttons = el.shadowRoot.querySelectorAll('.pagination button');
     expect(buttons.length).to.be.at.least(3);
   });
@@ -32,10 +34,10 @@ suite('PaginationComponent', () => {
         .totalPages=${5}
       ></pagination-component>
     `);
-    
+
     const buttons = el.shadowRoot.querySelectorAll('.pagination button');
     const prevButton = buttons[0];
-    
+
     expect(prevButton.hasAttribute('disabled')).to.be.true;
   });
 
@@ -46,10 +48,10 @@ suite('PaginationComponent', () => {
         .totalPages=${5}
       ></pagination-component>
     `);
-    
+
     const buttons = el.shadowRoot.querySelectorAll('.pagination button');
     const nextButton = buttons[buttons.length - 1];
-    
+
     expect(nextButton.hasAttribute('disabled')).to.be.true;
   });
 
@@ -60,8 +62,10 @@ suite('PaginationComponent', () => {
         .totalPages=${5}
       ></pagination-component>
     `);
-    
-    const activeButtons = el.shadowRoot.querySelectorAll('.pagination button.active');
+
+    const activeButtons = el.shadowRoot.querySelectorAll(
+      '.pagination button.active'
+    );
     expect(activeButtons.length).to.equal(1);
     expect(activeButtons[0].textContent.trim()).to.equal('3');
   });
@@ -73,12 +77,14 @@ suite('PaginationComponent', () => {
         .totalPages=${10}
       ></pagination-component>
     `);
-    
-    const paginationItems = el.shadowRoot.querySelectorAll('.pagination button, .pagination .page-info');
-    
-   
-    const hasEllipsis = Array.from(paginationItems).some(item => 
-      item.textContent.includes('...'));
+
+    const paginationItems = el.shadowRoot.querySelectorAll(
+      '.pagination button, .pagination .page-info'
+    );
+
+    const hasEllipsis = Array.from(paginationItems).some((item) =>
+      item.textContent.includes('...')
+    );
     expect(hasEllipsis).to.be.true;
   });
 
@@ -89,19 +95,18 @@ suite('PaginationComponent', () => {
         .totalPages=${5}
       ></pagination-component>
     `);
-    
+
     let eventDetail = null;
     el.addEventListener('page-changed', (e) => {
       eventDetail = e.detail;
     });
-    
-   
-    const pageButtons = Array.from(el.shadowRoot.querySelectorAll('.pagination button'))
-      .filter(button => !button.hasAttribute('disabled'));
-    
-   
+
+    const pageButtons = Array.from(
+      el.shadowRoot.querySelectorAll('.pagination button')
+    ).filter((button) => !button.hasAttribute('disabled'));
+
     pageButtons[1].click();
-    
+
     expect(eventDetail).to.not.be.null;
     expect(eventDetail.page).to.equal(1);
   });
@@ -113,15 +118,15 @@ suite('PaginationComponent', () => {
         .totalPages=${5}
       ></pagination-component>
     `);
-    
+
     let eventDetail = null;
     el.addEventListener('page-changed', (e) => {
       eventDetail = e.detail;
     });
-    
+
     const prevButton = el.shadowRoot.querySelector('.pagination button');
     prevButton.click();
-    
+
     expect(eventDetail).to.not.be.null;
     expect(eventDetail.page).to.equal(1);
   });
@@ -133,16 +138,16 @@ suite('PaginationComponent', () => {
         .totalPages=${5}
       ></pagination-component>
     `);
-    
+
     let eventDetail = null;
     el.addEventListener('page-changed', (e) => {
       eventDetail = e.detail;
     });
-    
+
     const buttons = el.shadowRoot.querySelectorAll('.pagination button');
     const nextButton = buttons[buttons.length - 1];
     nextButton.click();
-    
+
     expect(eventDetail).to.not.be.null;
     expect(eventDetail.page).to.equal(3);
   });
@@ -154,11 +159,14 @@ suite('PaginationComponent', () => {
         .totalPages=${100}
       ></pagination-component>
     `);
-    
-    const pageItems = el.shadowRoot.querySelectorAll('.pagination button, .pagination .page-info');
-    const itemTexts = Array.from(pageItems).map(item => item.textContent.trim());
-    
-   
+
+    const pageItems = el.shadowRoot.querySelectorAll(
+      '.pagination button, .pagination .page-info'
+    );
+    const itemTexts = Array.from(pageItems).map((item) =>
+      item.textContent.trim()
+    );
+
     expect(itemTexts).to.include('1');
     expect(itemTexts).to.include('49');
     expect(itemTexts).to.include('...');
@@ -173,7 +181,7 @@ suite('PaginationComponent', () => {
         .totalPages=${5}
       ></pagination-component>
     `);
-    
+
     await expect(el).to.be.accessible();
   });
 });
