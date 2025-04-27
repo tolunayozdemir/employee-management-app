@@ -13,6 +13,8 @@ export class NavigationContainer extends LitElement {
     super();
     this.currentPath = window.location.pathname;
 
+    this._handleLocationChanged = this._handleLocationChanged.bind(this);
+
     window.addEventListener(
       'vaadin-router-location-changed',
       this._handleLocationChanged
