@@ -29,12 +29,16 @@ const persistStateMiddleware = (store) => (next) => (action) => {
   return result;
 };
 
-const persistedState = loadState();
+export const _initStore = () => {
+  const persistedState = loadState();
 
-const store = createStore(
-  employeeReducer,
-  persistedState || initialState,
-  compose(applyMiddleware(persistStateMiddleware))
-);
+  return createStore(
+    employeeReducer,
+    persistedState || initialState,
+    compose(applyMiddleware(persistStateMiddleware))
+  );
+};
+
+const store = _initStore();
 
 export default store;
