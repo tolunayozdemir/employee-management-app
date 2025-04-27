@@ -79,8 +79,8 @@ export class ConfirmationDialog extends LitElement {
       opacity: 0.9;
     }
     .cancel-button {
-      background-color: var(--bg-light);
-      color: var(--text-color);
+      background-color: var(--secondary-button-color);
+      color: var(--white);
       border: 0.0625rem solid var(--border-color);
     }
     .proceed-button {

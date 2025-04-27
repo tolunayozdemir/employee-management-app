@@ -99,7 +99,7 @@ export class FormSelect extends LitElement {
     `;
   }
 
-  handleChange(e) {
+  _handleChange(e) {
     this.value = e.target.value;
 
     this.dispatchEvent(
@@ -125,7 +125,7 @@ export class FormSelect extends LitElement {
             .value="${this.value}"
             ?disabled="${this.disabled}"
             ?required="${this.required}"
-            @change="${this.handleChange}"
+            @change="${this._handleChange}"
           >
             <option value="" disabled selected>${this.placeholder}</option>
             ${this.options.map((option) => {

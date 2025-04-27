@@ -69,11 +69,11 @@ export class EmployeeList extends LitElement {
     this.currentPage = 0;
   }
 
-  get totalPages() {
+  _getTotalPages() {
     return Math.ceil(this.employees.length / ITEMS_PER_PAGE);
   }
 
-  get displayedEmployees() {
+  _getDisplayedEmployees() {
     const startIndex = this.currentPage * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     return this.employees.slice(startIndex, endIndex);
@@ -159,7 +159,7 @@ export class EmployeeList extends LitElement {
           </tr>
         </thead>
         <tbody>
-          ${this.displayedEmployees.map((employee) =>
+          ${this._getDisplayedEmployees().map((employee) =>
             this._renderEmployeeRow(employee)
           )}
         </tbody>
@@ -167,7 +167,7 @@ export class EmployeeList extends LitElement {
       <pagination-component
         @page-changed=${this._handlePageChange}
         .currentPage=${this.currentPage}
-        .totalPages=${this.totalPages}
+        .totalPages=${this._getTotalPages()}
         .itemsPerPage=${ITEMS_PER_PAGE}
       ></pagination-component>
     `;

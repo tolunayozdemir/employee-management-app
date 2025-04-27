@@ -65,7 +65,7 @@ export class FormInput extends LitElement {
     `;
   }
 
-  handleInput(e) {
+  _handleInput(e) {
     this.value = e.target.value;
 
     this.dispatchEvent(
@@ -92,7 +92,7 @@ export class FormInput extends LitElement {
           placeholder="${this.placeholder || ''}"
           ?disabled="${this.disabled}"
           ?required="${this.required}"
-          @input="${this.handleInput}"
+          @input="${this._handleInput}"
         />
         ${this.error ? html`<div class="error">${this.error}</div>` : ''}
       </div>

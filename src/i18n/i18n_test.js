@@ -1,7 +1,7 @@
 import {I18n} from './index.js';
 import {expect} from '@open-wc/testing';
 import store from '../store/store.js';
-import {translations} from '../utils/translations/index.js';
+import {translations} from './translations/index.js';
 
 suite('I18n', () => {
   let originalGetState;

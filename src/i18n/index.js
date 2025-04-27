@@ -1,4 +1,4 @@
-import {translations} from '../utils/translations/index.js';
+import {translations} from './translations/index.js';
 import store from '../store/store.js';
 import {setLanguage} from '../store/actions.js';
 

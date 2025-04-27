@@ -3,6 +3,14 @@ import store from '../../store/store.js';
 import './form-input.js';
 import './form-select.js';
 import {I18n} from '../../i18n/index.js';
+import {
+  validateRequired,
+  validateNotFutureDate,
+  validateDateOfBirth,
+  validatePhone,
+  validateEmail,
+  validateEmailUnique,
+} from '../../utils/validators.js';
 
 const DEPARTMENTS = ['Analytics', 'Tech'];
 const POSITIONS = ['Junior', 'Medior', 'Senior'];
@@ -64,7 +72,7 @@ export class EmployeeForm extends LitElement {
       }
 
       button.cancel {
-        background-color: #95a5a6;
+        background-color: var(--secondary-button-color);
       }
 
       @media (max-width: 768px) {
@@ -96,117 +104,98 @@ export class EmployeeForm extends LitElement {
     `;
   }
 
-  validateForm() {
+  _getExistingEmails() {
+    const employeesState = store.getState().employees;
+    return employeesState.map((emp) => emp.email);
+  }
+
+  _getDateOfBirthErrorMessage(dateStr) {
+    const birthDate = new Date(dateStr);
+    const today = new Date();
+
+    if (birthDate > today) {
+      return I18n.t('error.future.dateOfBirth');
+    }
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age < 18 ? I18n.t('error.tooYoung') : I18n.t('error.tooOld');
+  }
+
+  _validateForm() {
+    const {formData, editMode} = this;
+    const errors = {};
     let isValid = true;
-    const newErrors = {...this.errors};
 
-    if (!this.formData.firstName.trim()) {
-      newErrors.firstName = I18n.t('error.required.firstName');
+    if (!validateRequired(formData.firstName)) {
+      errors.firstName = I18n.t('error.required.firstName');
       isValid = false;
-    } else {
-      newErrors.firstName = '';
     }
 
-    if (!this.formData.lastName.trim()) {
-      newErrors.lastName = I18n.t('error.required.lastName');
+    if (!validateRequired(formData.lastName)) {
+      errors.lastName = I18n.t('error.required.lastName');
       isValid = false;
-    } else {
-      newErrors.lastName = '';
     }
 
-    if (!this.formData.dateOfEmployment) {
-      newErrors.dateOfEmployment = I18n.t('error.required.dateOfEmployment');
+    if (!validateRequired(formData.dateOfEmployment)) {
+      errors.dateOfEmployment = I18n.t('error.required.dateOfEmployment');
       isValid = false;
-    } else {
-      const employmentDate = new Date(this.formData.dateOfEmployment);
-      const today = new Date();
-      if (employmentDate > today) {
-        newErrors.dateOfEmployment = I18n.t('error.future.dateOfEmployment');
-        isValid = false;
-      } else {
-        newErrors.dateOfEmployment = '';
-      }
+    } else if (!validateNotFutureDate(formData.dateOfEmployment)) {
+      errors.dateOfEmployment = I18n.t('error.future.dateOfEmployment');
+      isValid = false;
     }
 
-    if (!this.formData.dateOfBirth) {
-      newErrors.dateOfBirth = I18n.t('error.required.dateOfBirth');
+    if (!validateRequired(formData.dateOfBirth)) {
+      errors.dateOfBirth = I18n.t('error.required.dateOfBirth');
       isValid = false;
-    } else {
-      const birthDate = new Date(this.formData.dateOfBirth);
-      const today = new Date();
-      const minAge = 18;
-      const maxAge = 100;
-
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const m = today.getMonth() - birthDate.getMonth();
-      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-
-      if (birthDate > today) {
-        newErrors.dateOfBirth = I18n.t('error.future.dateOfBirth');
-        isValid = false;
-      } else if (age < minAge) {
-        newErrors.dateOfBirth = I18n.t('error.tooYoung');
-        isValid = false;
-      } else if (age > maxAge) {
-        newErrors.dateOfBirth = I18n.t('error.tooOld');
-        isValid = false;
-      } else {
-        newErrors.dateOfBirth = '';
-      }
-    }
-
-    const phoneRegex = /^\+?\d{10,15}$/;
-    if (!this.formData.phone.trim()) {
-      newErrors.phone = I18n.t('error.required.phone');
-      isValid = false;
-    } else if (!phoneRegex.test(this.formData.phone)) {
-      newErrors.phone = I18n.t('error.invalid.phone');
-      isValid = false;
-    } else {
-      newErrors.phone = '';
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!this.formData.email.trim()) {
-      newErrors.email = I18n.t('error.required.email');
-      isValid = false;
-    } else if (!emailRegex.test(this.formData.email)) {
-      newErrors.email = I18n.t('error.invalid.email');
-      isValid = false;
-    } else if (!this.editMode) {
-      const employeesState = store.getState().employees;
-      const emailExists = employeesState.some(
-        (emp) => emp.email === this.formData.email
+    } else if (!validateDateOfBirth(formData.dateOfBirth)) {
+      errors.dateOfBirth = this._getDateOfBirthErrorMessage(
+        formData.dateOfBirth
       );
-      if (emailExists) {
-        newErrors.email = I18n.t('error.duplicate.email');
+      isValid = false;
+    }
+
+    if (!validateRequired(formData.phone)) {
+      errors.phone = I18n.t('error.required.phone');
+      isValid = false;
+    } else if (!validatePhone(formData.phone)) {
+      errors.phone = I18n.t('error.invalid.phone');
+      isValid = false;
+    }
+
+    if (!validateRequired(formData.email)) {
+      errors.email = I18n.t('error.required.email');
+      isValid = false;
+    } else if (!validateEmail(formData.email)) {
+      errors.email = I18n.t('error.invalid.email');
+      isValid = false;
+    } else if (!editMode) {
+      const existingEmails = this._getExistingEmails();
+      if (!validateEmailUnique(formData.email, existingEmails)) {
+        errors.email = I18n.t('error.duplicate.email');
         isValid = false;
-      } else {
-        newErrors.email = '';
       }
     }
 
-    if (!this.formData.department) {
-      newErrors.department = I18n.t('error.required.department');
+    if (!validateRequired(formData.department)) {
+      errors.department = I18n.t('error.required.department');
       isValid = false;
-    } else {
-      newErrors.department = '';
     }
 
-    if (!this.formData.position) {
-      newErrors.position = I18n.t('error.required.position');
+    if (!validateRequired(formData.position)) {
+      errors.position = I18n.t('error.required.position');
       isValid = false;
-    } else {
-      newErrors.position = '';
     }
 
-    this.errors = newErrors;
+    this.errors = errors;
     return isValid;
   }
 
-  handleInputChange(e) {
+  _handleInputChange(e) {
     const field = e.detail.name;
     const value = e.detail.value;
 
@@ -223,10 +212,10 @@ export class EmployeeForm extends LitElement {
     }
   }
 
-  handleSubmit(e) {
+  _handleSubmit(e) {
     e.preventDefault();
 
-    if (this.validateForm()) {
+    if (this._validateForm()) {
       this.dispatchEvent(
         new CustomEvent('submit-form', {
           detail: {
@@ -237,20 +226,20 @@ export class EmployeeForm extends LitElement {
     }
   }
 
-  handleCancelClick() {
+  _handleCancelClick() {
     this.dispatchEvent(new CustomEvent('cancel-form'));
   }
 
   render() {
     return html`
-      <form @submit="${this.handleSubmit}">
+      <form @submit="${this._handleSubmit}" action="javascript:void(0);">
         <div class="form-row">
           <form-input
             label="${I18n.t('form.firstName')}"
             name="firstName"
             .value="${this.formData.firstName}"
             .error="${this.errors.firstName}"
-            @input-change="${this.handleInputChange}"
+            @input-change="${this._handleInputChange}"
           ></form-input>
 
           <form-input
@@ -258,7 +247,7 @@ export class EmployeeForm extends LitElement {
             name="lastName"
             .value="${this.formData.lastName}"
             .error="${this.errors.lastName}"
-            @input-change="${this.handleInputChange}"
+            @input-change="${this._handleInputChange}"
           ></form-input>
         </div>
 
@@ -269,7 +258,7 @@ export class EmployeeForm extends LitElement {
             type="date"
             .value="${this.formData.dateOfEmployment}"
             .error="${this.errors.dateOfEmployment}"
-            @input-change="${this.handleInputChange}"
+            @input-change="${this._handleInputChange}"
           ></form-input>
 
           <form-input
@@ -278,7 +267,7 @@ export class EmployeeForm extends LitElement {
             type="date"
             .value="${this.formData.dateOfBirth}"
             .error="${this.errors.dateOfBirth}"
-            @input-change="${this.handleInputChange}"
+            @input-change="${this._handleInputChange}"
           ></form-input>
         </div>
 
@@ -290,7 +279,7 @@ export class EmployeeForm extends LitElement {
             placeholder="${I18n.t('form.phoneFormat')}"
             .value="${this.formData.phone}"
             .error="${this.errors.phone}"
-            @input-change="${this.handleInputChange}"
+            @input-change="${this._handleInputChange}"
           ></form-input>
 
           <form-input
@@ -301,7 +290,7 @@ export class EmployeeForm extends LitElement {
             .value="${this.formData.email}"
             .error="${this.errors.email}"
             .disabled="${this.editMode}"
-            @input-change="${this.handleInputChange}"
+            @input-change="${this._handleInputChange}"
           ></form-input>
         </div>
 
@@ -313,7 +302,7 @@ export class EmployeeForm extends LitElement {
             .value="${this.formData.department}"
             placeholder="${I18n.t('form.selectDepartment')}"
             .error="${this.errors.department}"
-            @select-change="${this.handleInputChange}"
+            @select-change="${this._handleInputChange}"
           ></form-select>
 
           <form-select
@@ -323,7 +312,7 @@ export class EmployeeForm extends LitElement {
             .value="${this.formData.position}"
             placeholder="${I18n.t('form.selectPosition')}"
             .error="${this.errors.position}"
-            @select-change="${this.handleInputChange}"
+            @select-change="${this._handleInputChange}"
           ></form-select>
         </div>
 
@@ -331,7 +320,7 @@ export class EmployeeForm extends LitElement {
           <button
             type="button"
             class="cancel"
-            @click="${this.handleCancelClick}"
+            @click="${this._handleCancelClick}"
           >
             ${I18n.t('button.cancel')}
           </button>
