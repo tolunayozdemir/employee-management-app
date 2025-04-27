@@ -3,7 +3,7 @@ import {Router} from '@vaadin/router';
 import store from '../../store/store.js';
 import {addEmployee} from '../store/actions.js';
 import '../components/form/employee-form.js';
-import '../components/confirmation-dialog.js';
+import '../components/dialog/confirmation-dialog.js';
 import {I18n} from '../i18n/index.js';
 
 export class AddEmployeePage extends LitElement {
@@ -85,7 +85,7 @@ export class AddEmployeePage extends LitElement {
         ></employee-form>
 
         <confirmation-dialog
-          .open=${this._isConfirmModalOpen}
+          .isOpen=${this._isConfirmModalOpen}
           .message=${this._confirmMessage}
           @cancel=${this._onCancel}
           @confirm=${this._onConfirm}

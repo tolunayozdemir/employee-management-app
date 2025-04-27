@@ -1,9 +1,9 @@
 import {LitElement, html, css} from 'lit';
-import {I18n} from '../i18n/index.js';
+import {I18n} from '../../i18n/index.js';
 
 export class ConfirmationDialog extends LitElement {
   static properties = {
-    open: {type: Boolean},
+    isOpen: {type: Boolean},
     message: {type: String},
   };
 
@@ -91,12 +91,12 @@ export class ConfirmationDialog extends LitElement {
 
   constructor() {
     super();
-    this.open = false;
+    this.isOpen = false;
     this.message = '';
   }
 
   render() {
-    if (!this.open) return html``;
+    if (!this.isOpen) return html``;
     
     return html`
       <div class="overlay">
@@ -123,12 +123,12 @@ export class ConfirmationDialog extends LitElement {
 
   _onCancel() {
     this.dispatchEvent(new CustomEvent('cancel'));
-    this.open = false;
+    this.isOpen = false;
   }
 
   _onConfirm() {
     this.dispatchEvent(new CustomEvent('confirm'));
-    this.open = false;
+    this.isOpen = false;
   }
 }
 
