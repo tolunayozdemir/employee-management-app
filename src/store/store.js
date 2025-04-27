@@ -1,5 +1,5 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { employeeReducer, initialState } from './reducers.js';
+import {createStore, applyMiddleware, compose} from 'redux';
+import {employeeReducer, initialState} from './reducers.js';
 
 const loadState = () => {
   try {
@@ -23,7 +23,7 @@ const saveState = (state) => {
   }
 };
 
-const persistStateMiddleware = store => next => action => {
+const persistStateMiddleware = (store) => (next) => (action) => {
   const result = next(action);
   saveState(store.getState());
   return result;

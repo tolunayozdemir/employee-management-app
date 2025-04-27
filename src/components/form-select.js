@@ -10,7 +10,7 @@ export class FormSelect extends LitElement {
       placeholder: {type: String},
       disabled: {type: Boolean},
       error: {type: String},
-      required: {type: Boolean}
+      required: {type: Boolean},
     };
   }
 
@@ -37,7 +37,7 @@ export class FormSelect extends LitElement {
         font-weight: 500;
         margin-bottom: 0.5rem;
         color: var(--text-color-light);
-        font-size: .9rem;
+        font-size: 0.9rem;
       }
 
       .select-wrapper {
@@ -100,15 +100,15 @@ export class FormSelect extends LitElement {
 
   handleChange(e) {
     this.value = e.target.value;
-    
+
     this.dispatchEvent(
       new CustomEvent('select-change', {
         detail: {
           name: this.name,
-          value: this.value
+          value: this.value,
         },
         bubbles: true,
-        composed: true
+        composed: true,
       })
     );
   }
@@ -127,11 +127,21 @@ export class FormSelect extends LitElement {
             @change="${this.handleChange}"
           >
             <option value="" disabled selected>${this.placeholder}</option>
-            ${this.options.map(option => {
+            ${this.options.map((option) => {
               if (typeof option === 'object') {
-                return html`<option value="${option.value}" ?selected="${this.value === option.value}">${option.label}</option>`;
+                return html`<option
+                  value="${option.value}"
+                  ?selected="${this.value === option.value}"
+                >
+                  ${option.label}
+                </option>`;
               } else {
-                return html`<option value="${option}" ?selected="${this.value === option}">${option}</option>`;
+                return html`<option
+                  value="${option}"
+                  ?selected="${this.value === option}"
+                >
+                  ${option}
+                </option>`;
               }
             })}
           </select>

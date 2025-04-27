@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import {LitElement, html, css} from 'lit';
 import './form-input.js';
 
 export class SearchBar extends LitElement {
@@ -13,9 +13,9 @@ export class SearchBar extends LitElement {
 
   static get properties() {
     return {
-      placeholder: { type: String },
-      debounceTime: { type: Number },
-      value: { type: String }
+      placeholder: {type: String},
+      debounceTime: {type: Number},
+      value: {type: String},
     };
   }
 
@@ -31,15 +31,15 @@ export class SearchBar extends LitElement {
     if (this._debounceTimeout) {
       clearTimeout(this._debounceTimeout);
     }
-    
+
     this.value = e.detail.value;
-    
+
     this._debounceTimeout = setTimeout(() => {
       this.dispatchEvent(
         new CustomEvent('search-change', {
-          detail: { value: this.value },
+          detail: {value: this.value},
           bubbles: true,
-          composed: true
+          composed: true,
         })
       );
     }, this.debounceTime);

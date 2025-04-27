@@ -1,10 +1,10 @@
-import { LitElement, html, css } from 'lit';
+import {LitElement, html, css} from 'lit';
 
 export class ModalDialog extends LitElement {
   static get properties() {
     return {
-      isOpen: { type: Boolean },
-      title: { type: String }
+      isOpen: {type: Boolean},
+      title: {type: String},
     };
   }
 
@@ -23,14 +23,15 @@ export class ModalDialog extends LitElement {
         z-index: 1000;
         opacity: 0;
         visibility: hidden;
-        transition: opacity var(--transition-default), visibility var(--transition-default);
+        transition: opacity var(--transition-default),
+          visibility var(--transition-default);
       }
-      
+
       .modal-backdrop.open {
         opacity: 1;
         visibility: visible;
       }
-      
+
       .modal-container {
         background-color: var(--white);
         border-radius: var(--radius-md);
@@ -42,11 +43,11 @@ export class ModalDialog extends LitElement {
         transform: translateY(-1.25rem);
         transition: transform var(--transition-default);
       }
-      
+
       .modal-backdrop.open .modal-container {
         transform: translateY(0);
       }
-      
+
       .modal-header {
         display: flex;
         justify-content: space-between;
@@ -54,14 +55,14 @@ export class ModalDialog extends LitElement {
         padding: 1rem 1.5rem;
         border-bottom: 0.0625rem solid var(--border-color);
       }
-      
+
       .modal-title {
         margin: 0;
         font-size: 1.25rem;
         font-weight: 600;
         color: var(--text-color);
       }
-      
+
       .close-button {
         background: none;
         border: none;
@@ -71,11 +72,11 @@ export class ModalDialog extends LitElement {
         color: var(--text-color-light);
         transition: color var(--transition-default);
       }
-      
+
       .close-button:hover {
         color: var(--text-color);
       }
-      
+
       .modal-body {
         padding: 1.5rem;
       }
@@ -84,11 +85,11 @@ export class ModalDialog extends LitElement {
         .modal-container {
           width: 95%;
         }
-        
+
         .modal-header {
           padding: 0.75rem 1rem;
         }
-        
+
         .modal-body {
           padding: 1rem;
         }
@@ -113,7 +114,10 @@ export class ModalDialog extends LitElement {
 
   render() {
     return html`
-      <div class="modal-backdrop ${this.isOpen ? 'open' : ''}" @click="${this._handleBackdropClick}">
+      <div
+        class="modal-backdrop ${this.isOpen ? 'open' : ''}"
+        @click="${this._handleBackdropClick}"
+      >
         <div class="modal-container" @click="${this._stopPropagation}">
           <div class="modal-header">
             <h2 class="modal-title">${this.title}</h2>

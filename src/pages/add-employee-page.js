@@ -37,7 +37,7 @@ export class AddEmployeePage extends LitElement {
 
   _handleFormSubmit(e) {
     const formData = e.detail.formData;
-    
+
     if (confirm('Are you sure you want to add this employee?')) {
       store.dispatch(addEmployee(formData));
       Router.go('/');
@@ -48,7 +48,7 @@ export class AddEmployeePage extends LitElement {
     return html`
       <div class="form-container">
         <h2>Add New Employee</h2>
-        <employee-form 
+        <employee-form
           @cancel-form=${this._handleCancel}
           @submit-form=${this._handleFormSubmit}
         ></employee-form>

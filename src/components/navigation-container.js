@@ -1,4 +1,6 @@
 import {html, LitElement, css} from 'lit';
+import './language-switcher.js';
+import {I18n} from '../i18n/index.js';
 
 export class NavigationContainer extends LitElement {
   static get properties() {
@@ -36,6 +38,8 @@ export class NavigationContainer extends LitElement {
         padding: 1rem;
         box-shadow: var(--box-shadow);
         border-radius: var(--radius-sm);
+        display: flex;
+        justify-content: space-between;
       }
 
       ul {
@@ -91,17 +95,18 @@ export class NavigationContainer extends LitElement {
         <ul>
           <li>
             <a href="/" class=${this.currentPath === '/' ? 'active' : ''}
-              >Employee List</a
+              >${I18n.t('nav.employeeList')}</a
             >
           </li>
           <li>
             <a
               href="/add-employee"
               class=${this.currentPath === '/add-employee' ? 'active' : ''}
-              >Add Employee</a
+              >${I18n.t('nav.addEmployee')}</a
             >
           </li>
         </ul>
+        <language-switcher></language-switcher>
       </nav>
     `;
   }

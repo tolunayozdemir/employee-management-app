@@ -1,5 +1,5 @@
 import {html, LitElement, css} from 'lit';
-import { Router } from '@vaadin/router';
+import {Router} from '@vaadin/router';
 
 export class EmployeeTableNotFound extends LitElement {
   static get styles() {
@@ -48,7 +48,7 @@ export class EmployeeTableNotFound extends LitElement {
       button:hover {
         opacity: 0.9;
       }
-      
+
       button:active {
         opacity: 0.8;
       }
@@ -65,9 +65,7 @@ export class EmployeeTableNotFound extends LitElement {
         <div class="icon">👥</div>
         <h3>No employees found</h3>
         <p>There are currently no employees in the database.</p>
-        <button @click=${this._handleAddEmployeeClick}>
-          Add Employee
-        </button>
+        <button @click=${this._handleAddEmployeeClick}>Add Employee</button>
       </div>
     `;
   }

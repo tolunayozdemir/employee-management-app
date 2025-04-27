@@ -138,7 +138,7 @@ export class EmployeeList extends LitElement {
         ></employee-table-not-found>
       `;
     }
-    
+
     return html`
       <table class="employee-table">
         <thead>
