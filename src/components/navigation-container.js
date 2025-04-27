@@ -44,6 +44,10 @@ export class NavigationContainer extends LitElement {
         justify-content: space-between;
       }
 
+      h1 {
+        font-size: 1rem;
+      }
+
       ul {
         display: flex;
         list-style: none;
@@ -88,27 +92,38 @@ export class NavigationContainer extends LitElement {
       a:hover::after {
         width: 100%;
       }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
     `;
   }
 
   render() {
     return html`
       <nav>
-        <ul>
-          <li>
-            <a href="/" class=${this.currentPath === '/' ? 'active' : ''}
-              >${I18n.t('nav.employeeList')}</a
-            >
-          </li>
-          <li>
-            <a
-              href="/add-employee"
-              class=${this.currentPath === '/add-employee' ? 'active' : ''}
-              >${I18n.t('nav.addEmployee')}</a
-            >
-          </li>
-        </ul>
-        <language-switcher></language-switcher>
+        <div>
+          <h1 class="logo">ING</h1>
+        </div>
+        <div class="nav-links">
+          <ul>
+            <li>
+              <a href="/" class=${this.currentPath === '/' ? 'active' : ''}
+                >${I18n.t('nav.employeeList')}</a
+              >
+            </li>
+            <li>
+              <a
+                href="/add-employee"
+                class=${this.currentPath === '/add-employee' ? 'active' : ''}
+                >${I18n.t('nav.addEmployee')}</a
+              >
+            </li>
+          </ul>
+          <language-switcher></language-switcher>
+        </div>
       </nav>
     `;
   }

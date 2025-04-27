@@ -1,6 +1,6 @@
 export const en = {
   // Navigation
-  'nav.employeeList': 'Employee List',
+  'nav.employeeList': 'Employees',
   'nav.addEmployee': 'Add Employee',
 
   // Page Titles
