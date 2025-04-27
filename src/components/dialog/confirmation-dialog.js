@@ -34,7 +34,7 @@ export class ConfirmationDialog extends LitElement {
       justify-content: space-between;
       align-items: center;
       margin-bottom: 0.9375rem;
-      border-bottom: 0.0625rem solid var(--border-color, #ddd);
+      border-bottom: 0.0625rem solid var(--border-color);
       padding-bottom: 0.625rem;
     }
     .dialog-title {
@@ -70,7 +70,7 @@ export class ConfirmationDialog extends LitElement {
     .dialog-buttons button {
       padding: 0.5rem 1rem;
       border: none;
-      border-radius: var(--radius-md, 0.25rem);
+      border-radius: var(--radius-md);
       cursor: pointer;
       font-size: 1rem;
       transition: opacity var(--transition-default);

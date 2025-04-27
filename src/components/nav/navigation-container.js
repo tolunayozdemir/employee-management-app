@@ -1,6 +1,7 @@
 import {html, LitElement, css} from 'lit';
 import './language-switcher.js';
-import {I18n} from '../i18n/index.js';
+import {I18n} from '../../i18n/index.js';
+import {Router} from '@vaadin/router';
 
 export class NavigationContainer extends LitElement {
   static get properties() {
@@ -25,6 +26,10 @@ export class NavigationContainer extends LitElement {
     this.currentPath = event.detail.location.pathname;
   }
 
+  _handleLogoClick() {
+    Router.go('/');
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
     window.removeEventListener(
@@ -46,6 +51,10 @@ export class NavigationContainer extends LitElement {
 
       h1 {
         font-size: 1rem;
+      }
+
+      .logo {
+        cursor: pointer;
       }
 
       ul {
@@ -105,7 +114,7 @@ export class NavigationContainer extends LitElement {
     return html`
       <nav>
         <div>
-          <h1 class="logo">ING</h1>
+          <h1 class="logo" @click=${this._handleLogoClick}>ING</h1>
         </div>
         <div class="nav-links">
           <ul>

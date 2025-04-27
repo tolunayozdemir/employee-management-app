@@ -1,5 +1,5 @@
 import {LitElement, html, css} from 'lit';
-import {I18n} from '../i18n/index.js';
+import {I18n} from '../../i18n/index.js';
 
 export class LanguageSwitcher extends LitElement {
   static get properties() {
@@ -29,9 +29,9 @@ export class LanguageSwitcher extends LitElement {
 
     .language-button {
       background: none;
-      border: 1px solid var(--primary-color, #3498db);
+      border: 1px solid var(--primary-color);
       border-radius: 4px;
-      color: var(--text-color, #333);
+      color: var(--text-color);
       cursor: pointer;
       font-size: 14px;
       font-weight: 500;
@@ -40,12 +40,12 @@ export class LanguageSwitcher extends LitElement {
     }
 
     .language-button:hover {
-      background-color: var(--primary-color-light, #e3f2fd);
+      background-color: var(--primary-color-light);
     }
 
     .language-button.active {
-      background-color: var(--primary-color, #3498db);
-      color: white;
+      background-color: var(--primary-color-dark);
+      color: var(--white);
     }
 
     @media (max-width: 768px) {

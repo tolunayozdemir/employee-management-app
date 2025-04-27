@@ -1,5 +1,5 @@
 import {Router} from '@vaadin/router';
-import './components/navigation-container.js';
+import './components/nav/navigation-container.js';
 import {I18n} from './i18n';
 
 I18n.initLanguage();

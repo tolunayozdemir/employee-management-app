@@ -2,6 +2,7 @@
   --background-color: #f5f5f5;
   --primary-color: #ff6600;
   --primary-color-light: rgba(255, 102, 0, 0.15);
+  --primary-color-dark: #cc5200;
   --white: #fffbfb;
   --border-color: #ddd;
   --bg-light: #f0f0f0;
@@ -22,9 +23,9 @@ html {
   padding: 0;
   font-family: 'Open Sans', Arial, sans-serif;
   background-color: var(--background-color);
+  min-height: 100vh;
 }
 
 main {
-  min-height: 100vh;
   padding: 1rem 3rem;
 }
