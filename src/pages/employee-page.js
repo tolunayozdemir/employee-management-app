@@ -2,7 +2,7 @@ import {LitElement, html, css} from 'lit';
 import '../components/employee-table.js';
 import '../components/employee-list.js';
 import '../components/modal-dialog.js';
-import '../components/employee-form.js';
+import '../components/form/employee-form.js';
 import '../components/search-bar.js';
 import '../components/confirmation-dialog.js';
 import store from '../store/store.js';

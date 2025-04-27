@@ -1,5 +1,5 @@
 import {LitElement, html, css} from 'lit';
-import './form-input.js';
+import './form/form-input.js';
 import {I18n} from '../i18n/index.js';
 
 export class SearchBar extends LitElement {

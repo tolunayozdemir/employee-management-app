@@ -1,8 +1,8 @@
 import {LitElement, html, css} from 'lit';
-import store from '../store/store.js';
+import store from '../../store/store.js';
 import './form-input.js';
 import './form-select.js';
-import {I18n} from '../i18n/index.js';
+import {I18n} from '../../i18n/index.js';
 
 const DEPARTMENTS = ['Analytics', 'Tech'];
 const POSITIONS = ['Junior', 'Medior', 'Senior'];

@@ -1,5 +1,5 @@
 import {LitElement, html, css} from 'lit';
-import {I18n} from '../i18n/index.js';
+import {I18n} from '../../i18n/index.js';
 
 export class FormSelect extends LitElement {
   static get properties() {

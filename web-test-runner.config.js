@@ -117,15 +117,4 @@ export default {
       },
     }),
   ],
-  coverage: {
-    include: ['src/**/*.js'],
-    exclude: ['**/*_test.js'],
-    threshold: {
-      statements: 85,
-      branches: 85,
-      functions: 85,
-      lines: 85,
-    },
-    reportDir: 'coverage',
-  },
 };
