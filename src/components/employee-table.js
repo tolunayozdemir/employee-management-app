@@ -1,5 +1,5 @@
 import {html, LitElement, css} from 'lit';
-import './pagination-component.js';
+import './pagination/pagination-component.js';
 import './employee-not-found.js';
 import {I18n} from '../i18n/index.js';
 import {formatPhoneNumber, formatDate} from '../utils/formatters.js';
