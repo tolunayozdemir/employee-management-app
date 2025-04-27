@@ -39,7 +39,7 @@ suite('EmployeeNotFound', () => {
 
     const button = el.shadowRoot.querySelector('button');
     expect(button).to.exist;
-    expect(button.textContent).to.equal('button.add');
+    expect(button.textContent.trim()).to.equal('button.add');
   });
 
   test('add employee button click navigates to add employee page', async () => {

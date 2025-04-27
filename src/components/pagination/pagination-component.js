@@ -14,6 +14,20 @@ export class PaginationComponent extends LitElement {
     this.currentPage = 0;
     this.totalPages = 0;
   }
+
+  updated(changedProperties) {
+    if (changedProperties.has('totalPages')) {
+      if (this.currentPage >= this.totalPages && this.totalPages > 0) {
+        this.currentPage = this.totalPages - 1;
+        this.dispatchEvent(
+          new CustomEvent('page-changed', {
+            detail: {page: this.currentPage},
+          })
+        );
+      }
+    }
+  }
+
   static get styles() {
     return css`
       .pagination {

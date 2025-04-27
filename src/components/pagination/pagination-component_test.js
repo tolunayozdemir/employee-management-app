@@ -174,6 +174,63 @@ suite('PaginationComponent', () => {
     expect(itemTexts).to.include('100');
   });
 
+  test('adjusts currentPage when totalPages decreases below current page', async () => {
+    const el = await fixture(html`
+      <pagination-component
+        .currentPage=${4}
+        .totalPages=${5}
+      ></pagination-component>
+    `);
+    
+    let eventFired = false;
+    let eventDetail = null;
+    el.addEventListener('page-changed', (e) => {
+      eventFired = true;
+      eventDetail = e.detail;
+    });
+    
+    el.totalPages = 3;
+    await el.updateComplete;
+    
+    expect(el.currentPage).to.equal(2);
+    expect(eventFired).to.be.true;
+    expect(eventDetail.page).to.equal(2);
+  });
+  
+  test('does not adjust currentPage when totalPages decreases but current page is still valid', async () => {
+    const el = await fixture(html`
+      <pagination-component
+        .currentPage=${2}
+        .totalPages=${5}
+      ></pagination-component>
+    `);
+    
+    let eventFired = false;
+    el.addEventListener('page-changed', () => {
+      eventFired = true;
+    });
+    
+    el.totalPages = 4;
+    await el.updateComplete;
+    
+    expect(el.currentPage).to.equal(2);
+    expect(eventFired).to.be.false;
+  });
+  
+  test('does not throw when totalPages changes to zero', async () => {
+    const el = await fixture(html`
+      <pagination-component
+        .currentPage=${2}
+        .totalPages=${5}
+      ></pagination-component>
+    `);
+    
+    el.totalPages = 0;
+    await el.updateComplete;
+    
+    expect(el.render()).to.equal('');
+  });
+
   test('a11y', async () => {
     const el = await fixture(html`
       <pagination-component
